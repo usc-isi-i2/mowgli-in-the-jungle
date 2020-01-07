@@ -1,5 +1,5 @@
 class Entry(object):
-    """A single training/test entry for simple sequence classification."""
+    """A single training/dev/test entry for simple sequence classification."""
 
     def __init__(self, split, id, question, answers, intro='', corect_answer=None, metadata={}):
         """Constructs an Entry.
