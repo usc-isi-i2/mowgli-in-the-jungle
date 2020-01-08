@@ -21,15 +21,14 @@ Currently it supports `hellaswag`, `physicaliqa`, `socialiqa`. `anli` is now bei
 
 ### Notes
 
-* Even though we make efforts to unify the formats across datasets, make sure you understand what each means in the context of the dataset. For instance, the introductory sentence is crucial in hellaswag as it gives the entire context; in physicalIQA on the other hand, it is empty and the full information (called "goal" is given in the question sentence).
 * Usually, the question is preceded by some introductory/contextual information which we store in the field `intro`. It is probably a good idea to consider these two together in some way.
+* Even though we make efforts to unify the formats across datasets, make sure you understand what each field means in the context of the dataset you are working on. For instance, the introductory sentence is crucial in hellaswag as it gives the entire context; in physicalIQA on the other hand, it is empty and the full information (called "goal" is given in the question sentence).
 * Make sure you review the metadata: for instance, the "activity_label" stored for Hellaswag can be very valuable.
-* The social IQA dataset labels are originally one-padded. For this reason, I have added an empty zero-th possible answer for each entry.
+* The social IQA dataset labels are originally one-padded. For this reason, I have added an empty zero-th possible answer for each entry. This is already taken care of - you should be fine as long as your ssystem does not favor empty answers.
 * As mentioned above, developing your own solution should require *only* a modification of the `make_predictions()` function in `baseline.py`. Let me (Filip) know if you find that not to be the case.
-* The bin files should contain everything that is given in the original data. 
+* The `.bin` data files should contain everything that is given in the original data. 
 * The extraction was performed using the scripts in `parsers` based on the data in `data`. You don't need to worry about this process.
 * See `output/` for example predictions by a system.
-
 
 ### Additional info (skip): Extraction procedure
 1. `wget` or manually download all Darpa datasets, and unzip them into subfolders of `data`.
