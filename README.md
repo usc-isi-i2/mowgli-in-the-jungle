@@ -5,16 +5,17 @@ Currently it supports `hellaswag`, `physicaliqa`, `socialiqa`. `anli` is now bei
 
 ### Directory structure
 
-The important files are the following:
+**The important files are the following:**
 * `classes.py` describes two classes: `Dataset` and `Entry`. A dataset has a name and three attributes for the data partitions: `train`, `dev` and `test`. Each of these partition objects are arrays of entries. An entry is described with the following attributes: `split`, `id`, `question`, `answers`, `intro`, `correct_answers`, `metadata`. We use this structure to unify the different terminology used in different datasets. Usually, the question is preceded by some introductory/contextual information. It is probably a good idea to consider these two together in some way.
 * `baseline.py` shows how we can run a system on any of the datasets. This baseline generates a random answer number between 0 and len(answers)-1. It is probably a good starting point to make a copy of this script and work on the `make_predictions` function, which is essentially the only thing that needs to be changed here. At the end of this script we also perform evaluation in terms of accuracy.
 * `utils.py` contains useful functions that are used by other code. Currently, it only contains two functions that are used for evaluation.
 
-The data is structured as python objects following the `classes.py` specification. It can be found in `bin`. There is one `bin` file per dataset, which contains both the train and the dev partitions.
+**Folders**:
 
-The example baseline outputs a list of labels in an `output` folder. This can easily be modified by changing the value of the `outdir` variable in this script.
+* The data can be found in the folder `bin`. This folder contains one file per dataset, with all entries for both the train and the dev partitions. Namely, each file is structured as python objects following the `classes.py` specification.
+* The example baseline outputs a list of labels in the `output` folder. The destination folder can easily be modified by changing the value of the `outdir` variable in the baseline script.
 
-Other relevant files/folders:
+**Other relevant files/folders:**
 * `inspect_data.py` computes some general statistics about each of the datasets based on their `.bin` form. This can give you an idea of the amount of possible answers, or average length of the question.
 * the folder `evaluation` has a python and a shell script that perform independent evaluation. These scripts can be adapted to perform multi-dataset evaluation in a single run.
 
