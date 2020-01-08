@@ -13,23 +13,24 @@ def make_prediction(question, answers):
     return answer
 
 def main(args):
+    # Prepare directories
     dataname=args.dataset
-
     if not dataname:
         print("Print enter a dataset")
         return
     data_bin=f"bin/{dataname}.bin"
     with open(data_bin, 'rb') as d:
         data=pickle.load(d)
-
     outdir='output'
+
 
     # Make predictions on all partitions and store them as a list file
     for split in ['train', 'dev']:
-        labels=[]
         preds_file=f'{outdir}/{dataname}/{split}.lst'
         if os.path.isfile(preds_file):
             os.remove(preds_file)
+
+        labels=[]
         with open(preds_file, "a") as myfile:
             entries=getattr(data, split)
             for entry in entries:
