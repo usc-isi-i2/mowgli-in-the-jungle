@@ -17,19 +17,23 @@ def offset_answer(answer, offset):
     else:
         return answer
 
-config_data=config.socialiqa_config
+config_data=config.cfg['socialiqa']
 
 # Load dataset examples
 dataname=config_data['dataname']
-binfile=f'{config.bin_dir}/{dataname}.bin'
+
+bindir='../' + config.bin_dir
+inputdir='../' + config_data['input_data_loc']
+
+binfile=f'{bindir}/{dataname}.bin'
 
 dataset=classes.Dataset(dataname)
 
 parts=['train', 'dev']
 
 for split in parts:
-    input_file='%s/%s' % (config_data['input_data_loc'], config_data[f'{split}_input_file'])
-    labels_file='%s/%s' % (config_data['input_data_loc'], config_data[f'{split}_labels_file'])
+    input_file='%s/%s' % (inputdir, config_data[f'{split}_input_file'])
+    labels_file='%s/%s' % (inputdir, config_data[f'{split}_labels_file'])
 
     with open(input_file, 'r') as f:
         for index, l in enumerate(f):
