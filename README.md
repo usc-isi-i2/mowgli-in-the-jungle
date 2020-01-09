@@ -20,8 +20,8 @@ We use this structure to unify the different terminology used in different datas
 * The example baseline outputs a list of labels in the `output` folder. The destination folder can easily be modified by changing the value of the `outdir` variable in the baseline script.
 
 **Other relevant files/folders:**
-* `inspect_data.py` computes some general statistics about each of the datasets based on their `.bin` files. This can give you an idea of the amount of possible answers, or average length of the question.
-* the folder `evaluation` has a python and a shell script that perform independent evaluation. These scripts can be adapted to perform multi-dataset evaluation in a single run.
+* `inspect_data.py` computes some general statistics about each of the datasets based on their `.bin` files. This can give you an idea of the amount of possible answers, or the average length of the question.
+* the folder `evaluation` has a python and a shell script that perform dedicated evaluation outside of the system script. These scripts can be useful to perform multi-dataset evaluation in a single run.
 
 ### What is a question and what is an answer?
 
