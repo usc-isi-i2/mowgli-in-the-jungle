@@ -21,10 +21,10 @@ if __name__ == '__main__':
 
     dataset=classes.Dataset(dataname)
 
-    bindir=config.bin_dir
+    datadir=config.data_dir
     inputdir=config_data['input_data_loc']
 
-    binfile=f'{bindir}/{dataname}.bin'
+    outfile=f'{datadir}/{dataname}.bin'
 
     parts=['train', 'dev']
 
@@ -49,5 +49,5 @@ if __name__ == '__main__':
                 )
                 split_data.append(an_entry)
 
-    with open(binfile, 'wb') as w:
+    with open(outfile, 'wb') as w:
         pickle.dump(dataset, w)

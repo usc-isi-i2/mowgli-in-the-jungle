@@ -16,11 +16,11 @@ We use this structure to unify the different terminology used in different datas
 
 **Folders**:
 
-* The data can be found in the folder `bin`. This folder contains one file per dataset, with all entries for both the train and the dev partitions. Namely, each file is structured as a single Python object following the `classes.py` specification for a `Dataset`. No test data is provided.
+* The data can be found in the folder `data`. This folder contains one file per dataset, with all entries for both the train and the dev partitions. Namely, each file is structured as a single Python object following the `classes.py` specification for a `Dataset`. No test data is provided.
 * The example baseline outputs a list of labels in the `output` folder. The destination folder can easily be modified by changing the value of the `outdir` variable in the baseline script.
 
 **Other relevant files/folders:**
-* `inspect_data.py` computes some general statistics about each of the datasets based on their `.bin` files. This can give you an idea of the amount of possible answers, or the average length of the question.
+* `inspect_data.py` computes some general statistics about each of the datasets based on their files. This can give you an idea of the amount of possible answers, or the average length of the question.
 * the folder `evaluation` has a python and a shell script that perform dedicated evaluation outside of the system script. These scripts can be useful to perform multi-dataset evaluation in a single run.
 
 ### What is a question and what is an answer?
@@ -61,11 +61,11 @@ To run the baseline, use the following command: `python baseline.py --dataset {d
 * See `output/` for example predictions by a system.
 * Make sure you review the metadata: for instance, the `split_type` stored for Hellaswag can be valuable, as it indicates whether the question is in- or out-of-domain.
 * You might notice that the zeroth possible answer for the questions in the socialIQA dataset is an empty string. The reason for this is that the social IQA dataset labels are originally one-padded. This is already taken care of - you should be fine as long as your ssystem does not favor empty answers, but be careful when submitting an official system entry.
-* The `.bin` data files should contain everything that is given in the original data. 
+* The files in `data/` should contain everything that is given in the original data. 
 
 #### Additional info (skip): Extraction procedure
 
-The extraction was performed using the scripts in `parsers` based on the data in `data`. You don't need to worry about this process. If you do, it consists of the following rough steps:
+The extraction was performed using the scripts in `parsers` based on the data in `raw`. You don't need to worry about this process. If you do, it consists of the following rough steps:
 1. `wget` or manually download all Darpa datasets, and unzip them into subfolders of `data`.
 2. run `parsers/prepare_*.py` to create python objects for all datasets in the `bin` folder. The objects follow the schema from `classes.py` and the parsers use the configuration specified in `config.py`.
 

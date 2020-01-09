@@ -18,11 +18,11 @@ if __name__ == '__main__':
     # Load dataset examples
     dataname=config_data['dataname']
 
-    bindir=config.bin_dir
+    datadir=config.data_dir
     inputdir=config_data['input_data_loc']
 
-    binfile=f'{bindir}/{dataname}.bin'
-
+    outfile=f'{datadir}/{dataname}.bin'
+    print(outfile)
     dataset=classes.Dataset(dataname)
 
     parts=['train', 'dev']
@@ -38,7 +38,7 @@ if __name__ == '__main__':
             for index, l in enumerate(f):
                 item = json.loads(l)
                 split_data=getattr(dataset, split)
-                print(l)
+                #print(l)
                 an_entry=classes.Entry(
                     split=split,
                     id='{}-{}'.format(split, index),
@@ -48,5 +48,5 @@ if __name__ == '__main__':
                 )
                 split_data.append(an_entry)
 
-    with open(binfile, 'wb') as w:
+    with open(outfile, 'wb') as w:
         pickle.dump(dataset, w)

@@ -1,13 +1,13 @@
 # General
-bin_dir="../bin"
 data_dir="../data"
+raw_dir="../raw"
 
 cfg={}
 
 # Hellaswag
 cfg['hellaswag'] = {
             "dataname": "hellaswag",
-            "input_data_loc": f"{data_dir}/hellaswag-train-dev",
+            "input_data_loc": f"{raw_dir}/hellaswag-train-dev",
             "train_input_file": "train.jsonl",
             "train_labels_file": "train-labels.lst",
             "dev_input_file": "valid.jsonl",
@@ -18,7 +18,7 @@ cfg['hellaswag'] = {
 # PhysicalIQA
 cfg['physicaliqa'] = {
             "dataname": "physicaliqa",
-            "input_data_loc": f"{data_dir}/physicaliqa-train-dev",
+            "input_data_loc": f"{raw_dir}/physicaliqa-train-dev",
             "train_input_file": "train.jsonl",
             "train_labels_file": "train-labels.lst",
             "dev_input_file": "dev.jsonl",
@@ -29,7 +29,7 @@ cfg['physicaliqa'] = {
 # SocialIQA
 cfg['socialiqa'] = {
             "dataname": "socialiqa",
-            "input_data_loc": f"{data_dir}/socialiqa-train-dev",
+            "input_data_loc": f"{raw_dir}/socialiqa-train-dev",
             "train_input_file": "train.jsonl",
             "train_labels_file": "train-labels.lst",
             "dev_input_file": "dev.jsonl",
@@ -39,7 +39,7 @@ cfg['socialiqa'] = {
 
 cfg['anli'] = {
             "dataname": "anli",
-            "input_data_loc": f"{data_dir}/alphanli",
+            "input_data_loc": f"{raw_dir}/alphanli",
             "train_input_file": "train.jsonl",
             "train_labels_file": "train-labels.lst",
             "dev_input_file": "dev.jsonl",
