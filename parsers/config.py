@@ -37,3 +37,12 @@ cfg['socialiqa'] = {
             "answer_offset": 1
             }
 
+cfg['anli'] = {
+            "dataname": "anli",
+            "input_data_loc": f"{data_dir}/alphanli",
+            "train_input_file": "train.jsonl",
+            "train_labels_file": "train-labels.lst",
+            "dev_input_file": "dev.jsonl",
+            "dev_labels_file": "dev-labels.lst",
+            "answer_offset": 1
+        }

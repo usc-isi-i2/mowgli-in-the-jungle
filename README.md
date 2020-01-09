@@ -30,9 +30,24 @@ Even though we make efforts to unify the formats across datasets, make sure you 
 | PhysicalIQA |               goal              |           /          |         /         |
 |  SocialIQA  |             context             |       question       |         /         |
 
-The text in brackets is the original variable in the provided data. 
+The text in brackets is the original variable in the provided data, in case it is different than the human-readable label. 
 
-**Answers** The answers are more uniform among the datasets and typically ask for a natural following event given the one described in the question. The only exception here is aNLI, where the answer is the middle event between `observation 1` and `observation 2`.
+**Answers** Compared to the questions, the answers are more uniform across datasets and typically ask for a natural following event given the one described in the question. 
+
+The only exception here is aNLI, where the answer is the middle event between `observation 1` and `observation 2`, i.e., information that fills the gap between the two observations.
+
+### Baseline
+
+The current baseline picks a random number out of the possible answers. Given that the number of possible answers per dataset is between 2 and 4, the baseline accuracy varies between roughly 25 and 50%. Specifically:
+
+|   dataset   | baseline accuracy |
+|:-----------:|:-----------------:|
+|     aNLI    |        50%        |
+|  HellaSWAG  |        25%        |
+| PhysicalIQA |        50%        |
+|  SocialIQA  |      33.(3)%      |
+
+To run the baseline, use the following command: `python baseline.py --dataset {dataname}`.
 
 ### Notes
 
