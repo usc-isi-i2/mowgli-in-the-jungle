@@ -1,0 +1,9 @@
+# Classes
+predictor:
+  class: predictor.example_predictor.ExamplePredictor
+
+# Dataset
+dataset: "data/hellaswag.bin"
+
+# Settings
+store_predictions: true

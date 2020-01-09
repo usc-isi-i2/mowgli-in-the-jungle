@@ -1,6 +1,6 @@
 from sklearn.metrics import accuracy_score
 from typing import List
-
+import os
 
 def load_predictions(input_file: str) -> List[str]:
     lines = []
@@ -8,6 +8,14 @@ def load_predictions(input_file: str) -> List[str]:
         for l in f:
             lines.append(l.decode().strip())
     return lines
+
+def save_predictions(filename, answers):
+    if os.path.isfile(filename):
+        os.remove(filename)
+
+    with open(filename, "a") as myfile:
+        for answer in answers:
+            myfile.write(str(answer) + '\n')
 
 def compute_accuracy(gold_answers, pred_answers):
     if len(gold_answers) != len(pred_answers):
