@@ -1,7 +1,7 @@
-# mowgli-dev-framework
-A framework for developing solutions on the DARPA Machine commonsense development datasets.
+# mowgli-jungle-framework
+Jungle framework for developing solutions on the DARPA Machine commonsense development datasets within the Mowgli project.
 
-Currently it supports `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
+Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
 
 ### Directory structure
 
