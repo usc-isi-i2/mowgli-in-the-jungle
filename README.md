@@ -25,7 +25,7 @@ We use this structure to unify the different terminology used in different datas
 
 ### What is a question and what is an answer?
 
-Even though we make efforts to unify the formats across datasets, make sure you understand what each field means in the context of the dataset you are working on. The main variation between datasets is found in the kind of information given in the question. Here is a specification of what is given within the question list of each of our 4 supported datasets:
+Even though we make efforts to unify the formats across datasets, please make sure you understand what each field means in the context of the dataset you are working on. The main variation between the datasets is found in the kind of information given in the question. Here is a specification of what is given within the question of each of our 4 supported datasets (the elements 0, 1, and 2 are the elements of the `question` list):
 
 |   question  |            element 0            |       element 1      |     element 2     |
 |:-----------:|:-------------------------------:|:--------------------:|:-----------------:|
