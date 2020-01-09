@@ -18,11 +18,10 @@ def main(args):
     if not dataname:
         print("Print enter a dataset")
         return
-    data_bin=f"bin/{dataname}.bin"
+    data_bin=f"data/{dataname}.bin"
     with open(data_bin, 'rb') as d:
         data=pickle.load(d)
     outdir='output'
-
 
     # Make predictions on all partitions and store them as a list file
     for split in ['train', 'dev']:
@@ -51,4 +50,3 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     main(args)
-    
