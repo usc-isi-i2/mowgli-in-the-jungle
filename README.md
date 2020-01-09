@@ -11,7 +11,7 @@ Currently it supports `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
   * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`. 
 We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
 * `baseline.py` shows how we can run a system on any of the datasets. The provided baseline generates a random answer number between `0` and `len(answers)-1`. At the end of this script we also perform evaluation in terms of accuracy. 
- * *Hint:* It is probably a good starting point to make a copy of this script and work on the `make_predictions` function, which is essentially the only thing that needs to be changed here.
+ * Hint: It is probably a good starting point to make a copy of this script and work on the `make_predictions` function, which is essentially the only thing that needs to be changed here.
 * `utils.py` contains useful functions that are used by other scripts. Currently, it only contains two evaluation-supporting functions.
 
 **Folders**:
