@@ -1,5 +1,5 @@
 # mowgli-in-the-jungle framework
-mowgli-in-the-jungle framework helps developing solutions on the DARPA Machine commonsense development datasets within the Mowgli project.
+The `mowgli-in-the-jungle` framework helps developing solutions on the DARPA Machine commonsense development datasets within the Mowgli project.
 
 Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
 
