@@ -25,6 +25,9 @@ def _part_bs(item):
     else:
         return item['ctx_b']
 
+def compose_question(p1, p2, p3):
+    return [p1, p2, p3]
+
 if __name__ == '__main__':
 
     config_data=config.cfg['hellaswag']
@@ -56,8 +59,7 @@ if __name__ == '__main__':
                 an_entry=classes.Entry(
                     split=split,
                     id='{}-{}'.format(split, item['ind']),
-                    intro=_part_a(item),
-                    question=_part_bs(item),
+                    question=compose_question(_part_a(item), _part_bs(item), item['activity_label']),
                     answers=['']*offset + item['ending_options'],
                     correct_answer=None if split == 'test' else labels[index],
                     metadata={'activity_label': item['activity_label'], 'dataset': item['dataset'], 'split_type': item['split_type']}

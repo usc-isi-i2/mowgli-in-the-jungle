@@ -42,8 +42,7 @@ if __name__ == '__main__':
                 an_entry=classes.Entry(
                     split=split,
                     id='{}-{}'.format(split, index),
-                    intro=item['context'],
-                    question=item['question'],
+                    question=[item['context'], item['question']],
                     answers=combine_answers(item, offset),
                     correct_answer=None if split == 'test' else labels[index]
                 )

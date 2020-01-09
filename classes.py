@@ -6,15 +6,13 @@ class Entry(object):
         Args:
           split: string. Which data partition (train-dev-test) is the entry from.
           id: string. Unique id for the entry.
-          intro: (Optional) string. Possible introduction to the question, giving a context or an overarching label.
-          question: string. The actual question (which might be formed in concatenation with each of the answers) 
+          question: list. A list of several components, including the question context, the actual question, or pre-post situations (see the README for concrete details).
           answers: list. A list of all possible answers/hypotheses associated with the question.
           correct_answer: (Optional) string. Order number of the correct answer, zero-padded. Applicable to train and dev splits only.
           metadata: (Optional) dict. Any other relevant metadata per entry, such as domain or image information.
         """
         self.split=split
         self.id=id
-        self.intro=intro
         self.question=question
         self.answers=answers
         self.correct_answer=correct_answer
