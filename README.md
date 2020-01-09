@@ -6,7 +6,10 @@ Currently it supports `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
 ### Directory structure
 
 **Important files**:
-* `classes.py` describes two classes: `Dataset` and `Entry`. A dataset has a name and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries". An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`. We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
+* `classes.py` describes two classes: `Dataset` and `Entry`. 
+  * A dataset has a name and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries". 
+  * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`. 
+We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
 * `baseline.py` shows how we can run a system on any of the datasets. The provided baseline generates a random answer number between `0` and `len(answers)-1`. At the end of this script we also perform evaluation in terms of accuracy. It is probably a good starting point to make a copy of this script and work on the `make_predictions` function, which is essentially the only thing that needs to be changed here.
 * `utils.py` contains useful functions that are used by other scripts. Currently, it only contains two evaluation-supporting functions.
 
