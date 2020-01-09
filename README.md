@@ -68,3 +68,7 @@ To run the baseline, use the following command: `python baseline.py --dataset {d
 The extraction was performed using the scripts in `parsers` based on the data in `data`. You don't need to worry about this process. If you do, it consists of the following rough steps:
 1. `wget` or manually download all Darpa datasets, and unzip them into subfolders of `data`.
 2. run `parsers/prepare_*.py` to create python objects for all datasets in the `bin` folder. The objects follow the schema from `classes.py` and the parsers use the configuration specified in `config.py`.
+
+### Contact
+
+Filip Ilievski (ilievski@isi.edu)
