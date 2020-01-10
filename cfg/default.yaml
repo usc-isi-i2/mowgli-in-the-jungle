@@ -1,6 +1,6 @@
 # Classes
 predictor:
-  class: predictor.example_predictor.ExamplePredictor
+  class: predictor.example_predictor.example_predictor.ExamplePredictor
 
 # Dataset
 dataset: "data/hellaswag.bin"
