@@ -24,10 +24,10 @@ A prediction system on one of the datasets is based on the following files:
 #### How to create a new system?
 
 Creating a new system essentially requires two steps:
-1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the example predictor code). 
-2. Update/create your config file which points to your new class. Make sure also to specify the dataset you are working on in this config.
+1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). 
+2. Update/create a config file in `cfg/` to point to your new class. Make sure also to specify the dataset you are working on in this config file.
 
-After this, you should be able to run and evaluate your system by running `main.py`. Make sure you specify your config file as a command-line argument.
+After this, you should be able to run and evaluate your system by running `main.py`. Make sure you specify your config file (and optionally output directory and a pretrained model) as a command-line argument.
 
 ### What is a question and what is an answer?
 
@@ -48,7 +48,7 @@ For more (complementary) information, please consult the original dataset websit
 
 The only exception here is aNLI, where the answer is the middle event between `observation 1` and `observation 2`, i.e., information that fills the gap between the two observations.
 
-### `ExamplePredictor` performance
+### `ExamplePredictor` random baseline performance
 
 The current baseline picks an answer randomly out of the set of possible answers. Given that the number of possible answers per dataset is between 2 and 4, the baseline accuracy varies between roughly 25 and 50%. Specifically:
 
