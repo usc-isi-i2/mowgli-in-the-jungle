@@ -5,7 +5,7 @@ import pickle
 from collections import Counter
 
 parts=['train', 'dev']
-for f in glob.glob('bin/*.bin'):
+for f in glob.glob('data/*.bin'):
     with open(f, 'rb') as afile:
         data=pickle.load(afile)
 

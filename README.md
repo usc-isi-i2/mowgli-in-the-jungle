@@ -3,25 +3,31 @@ The `mowgli-in-the-jungle` framework helps developing solutions on the DARPA Mac
 
 Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
 
-### Directory structure
+### Data and structure
 
-**Important files**:
-* `classes.py` describes two classes: `Dataset` and `Entry`. 
-  * A `Dataset` has a name and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries". 
-  * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`. 
-We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
-* `baseline.py` shows how we can run a system on any of the datasets. The provided baseline generates a random answer number between `0` and `len(answers)-1`. At the end of this script we also perform evaluation in terms of accuracy. 
-  * Hint: It is probably a good starting point to make a copy of this script and work on the `make_predictions` function, which is essentially the only thing that needs to be changed here.
-* `utils.py` contains useful functions that are used by other scripts. Currently, it only contains two evaluation-supporting functions.
-
-**Folders**:
-
+* `classes.py` describes two classes: `Dataset` and `Entry`.
+  * A `Dataset` has a name and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries".
+  * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`.
+  We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
 * The data can be found in the folder `data`. This folder contains one file per dataset, with all entries for both the train and the dev partitions. Namely, each file is structured as a single Python object following the `classes.py` specification for a `Dataset`. No test data is provided.
-* The example baseline outputs a list of labels in the `output` folder. The destination folder can easily be modified by changing the value of the `outdir` variable in the baseline script.
 
-**Other relevant files/folders:**
-* `inspect_data.py` computes some general statistics about each of the datasets based on their files. This can give you an idea of the amount of possible answers, or the average length of the question.
-* the folder `evaluation` has a python and a shell script that perform dedicated evaluation outside of the system script. These scripts can be useful to perform multi-dataset evaluation in a single run.
+### Running a system
+
+#### Code components
+
+A prediction system on one of the datasets is based on the following files:
+* `main.py` is the executable script that runs the system. It accepts the following command-line arguments: `config` (config file in YAML), `output` (location for storing of the produced predictions), and `pretrained` (an optional argument pointing to a location of a pretrained model, to skip retraining). An example configuration file can be found in `cfg/` and example outputs can be found in the `output/` folder. The configuration is loaded with help of a `configurator` code.
+* `end_to_end.py` contains an `EndToEnd` class with a number of standard data science functions (loading of data, training a model, applying a model to make predictions, evaluating those predictions).
+* `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be instantiated in order to create an actual prediction system. This class defines two functions: `train` and `predict`. In this folder, there is an `ExamplePredictor` (in `predictor/example_predictor.py`) which shows how can we implement these functions for a random baseline.
+* `utils.py` contains useful functions that are used by other scripts for evaluation or working with predictions.
+
+#### How to create a new system?
+
+Creating a new system essentially requires two steps:
+1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the example predictor code). 
+2. Update/create your config file which points to your new class. Make sure also to specify the dataset you are working on in this config.
+
+After this, you should be able to run and evaluate your system by running `main.py`. Make sure you specify your config file as a command-line argument.
 
 ### What is a question and what is an answer?
 
@@ -42,9 +48,9 @@ For more (complementary) information, please consult the original dataset websit
 
 The only exception here is aNLI, where the answer is the middle event between `observation 1` and `observation 2`, i.e., information that fills the gap between the two observations.
 
-### Baseline
+### `ExamplePredictor` performance
 
-The current baseline picks a random number out of the possible answers. Given that the number of possible answers per dataset is between 2 and 4, the baseline accuracy varies between roughly 25 and 50%. Specifically:
+The current baseline picks an answer randomly out of the set of possible answers. Given that the number of possible answers per dataset is between 2 and 4, the baseline accuracy varies between roughly 25 and 50%. Specifically:
 
 |   dataset   | baseline accuracy |
 |:-----------:|:-----------------:|
@@ -53,15 +59,14 @@ The current baseline picks a random number out of the possible answers. Given th
 | PhysicalIQA |        50%        |
 |  SocialIQA  |      33.(3)%      |
 
-To run the baseline, use the following command: `python baseline.py --dataset {dataname}`.
-
 ### Notes
 
-* As mentioned above, developing your own solution should require *only* a modification of the `make_predictions()` function in `baseline.py`. Let me (Filip) know if you find that not to be the case.
-* See `output/` for example predictions by a system.
+* The files in `data/` should contain everything that is given in the original data. 
 * Make sure you review the metadata: for instance, the `split_type` stored for Hellaswag can be valuable, as it indicates whether the question is in- or out-of-domain.
 * You might notice that the zeroth possible answer for the questions in the socialIQA dataset is an empty string. The reason for this is that the social IQA dataset labels are originally one-padded. This is already taken care of - you should be fine as long as your ssystem does not favor empty answers, but be careful when submitting an official system entry.
-* The files in `data/` should contain everything that is given in the original data. 
+* `inspect_data.py` computes some general statistics about each of the datasets based on their files. This can give you an idea of the amount of possible answers, or the average length of the question.
+* the folder `evaluation` has a python and a shell script that perform dedicated evaluation outside of the system script. These scripts can be useful to perform multi-dataset evaluation in a single run.
+
 
 #### Additional info (skip): Extraction procedure
 
