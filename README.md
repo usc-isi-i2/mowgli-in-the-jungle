@@ -1,15 +1,15 @@
 # mowgli-in-the-jungle framework
-The `mowgli-in-the-jungle` framework supports the development of solutions on the DARPA Machine commonsense development datasets within the Mowgli project.
+The `mowgli-in-the-jungle` framework facilitates the development of solutions on the DARPA Machine commonsense development datasets within the Mowgli project.
 
 Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
 
 ### Data and structure
 
+* The data can be found in the folder `data`. This folder contains one file per dataset, with all entries for both the train and the dev partitions (no test data is provided for the DARPA datasets). Each dataset file is structured as a single Python object following the `classes.py` specification for a `Dataset`. 
 * `classes.py` describes two classes: `Dataset` and `Entry`.
   * A `Dataset` has a name and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries".
   * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`.
   We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
-* The data can be found in the folder `data`. This folder contains one file per dataset, with all entries for both the train and the dev partitions. Namely, each file is structured as a single Python object following the `classes.py` specification for a `Dataset`. No test data is provided.
 
 ### Running a system
 
@@ -18,16 +18,16 @@ Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`
 A prediction system on one of the datasets is based on the following files:
 * `main.py` is the executable script that runs the system. It accepts the following command-line arguments: `config` (config file in YAML), `output` (location for storing of the produced predictions), and `pretrained` (an optional argument pointing to a location of a pretrained model, to skip retraining). An example configuration file can be found in `cfg/` and example outputs can be found in the `output/` folder. The configuration is loaded with help of a `configurator` code.
 * `end_to_end.py` contains an `EndToEnd` class with a number of standard data science functions (loading of data, training a model, applying a model to make predictions, evaluating those predictions).
-* `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be instantiated in order to create an actual prediction system. This class defines two functions: `train` and `predict`. In this folder, there is an `ExamplePredictor` (in `predictor/example_predictor.py`) which shows how can we implement these functions for a random baseline.
-* `utils.py` contains useful functions that are used by other scripts for evaluation or working with predictions.
+* `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines two functions: `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
+* `utils.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 
 #### How to create a new system?
 
 Creating a new system essentially requires two steps:
-1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). 
-2. Update/create a config file in `cfg/` to point to your new class. Make sure also to specify the dataset you are working on in this config file.
+1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Please create your scripts in a subfolder for every new system (e.g., `predictor/neuralsystem/neuralsystem.py`) to allow us to keep track of new systems easier.
+2. Update/create a config file in `cfg/` to point to your new class and to the dataset you are working on.
 
-After this, you should be able to run and evaluate your system by running `main.py`. Make sure you specify your config file (and optionally output directory and a pretrained model) as a command-line argument.
+After this, you should be able to run and evaluate your system by running `main.py`. Make sure you specify your config file (and, optionally, output directory and a pretrained model) as a command-line argument.
 
 ### What is a question and what is an answer?
 
