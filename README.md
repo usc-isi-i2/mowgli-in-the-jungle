@@ -8,7 +8,7 @@ Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`
 * The data can be found in the folder `data`. This folder contains one folder per dataset, with all entries for both the train and the dev partitions (no test data is provided for the DARPA datasets). 
 All files that belong to a dataset are parsed together as a single Python object that follows the `classes.py` specification for a `Dataset`. 
 * `classes.py` describes two classes: `Dataset` and `Entry`.
-  * A `Dataset` has a name and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries".
+  * A `Dataset` has a `name` and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries".
   * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`.
   We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
 
