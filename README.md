@@ -52,7 +52,7 @@ This will create a docker image with a name ${IMAGE_NAME} for you, based on the 
 
   `beaker image create --name ${NAMEYOURMODEL} ${USERNAM}/${REPO}:${TAG}`
 
-**Step 4: upload to the leaderboard** Use your Beaker image to [create a submission](https://leaderboard.allenai.org/socialiqa/submission/create) to the official leaderboard.
+**Step 4: upload to the leaderboard** Use your Beaker image to [create a submission](https://leaderboard.allenai.org/socialiqa/submission/create) on the official leaderboard.
 
 ## III. Additional information
 
