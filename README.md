@@ -41,7 +41,7 @@ Creating a new system essentially requires three steps:
 * all dependencies and prerequisites for your code should be placed in `docker/Dockerfile` (feel free to create a new customized `Dockerfile`).
 * create a docker image by running:
 
-`docker build -t ${IMAGE_NAME} -f docker/Dockerfile .`
+  `docker build -t ${IMAGE_NAME} -f docker/Dockerfile .`
 
 This will create a docker image with a name ${IMAGE_NAME} for you, based on the configuration in `docker/Dockerfile`. 
 
@@ -50,7 +50,7 @@ This will create a docker image with a name ${IMAGE_NAME} for you, based on the 
 * [Install the beaker CLI](https://github.com/allenai/beaker/blob/master/README.md) on your machine.
 * Create a Beaker image:
 
-`beaker image create --name ${NAMEYOURMODEL} ${USERNAM}/${REPO}:${TAG}`
+  `beaker image create --name ${NAMEYOURMODEL} ${USERNAM}/${REPO}:${TAG}`
 
 **Step 4: upload to the leaderboard** Use your Beaker image to [create a submission](https://leaderboard.allenai.org/socialiqa/submission/create) to the official leaderboard.
 
