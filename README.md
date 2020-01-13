@@ -3,7 +3,7 @@ The `mowgli-in-the-jungle` framework facilitates the development of solutions on
 
 Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
 
-### Data and structure
+## Data and structure
 
 * The data can be found in the folder `data`. This folder contains one folder per dataset, with all entries for both the train and the dev partitions (no test data is provided for the DARPA datasets). 
 All files that belong to a dataset are parsed together as a single Python object that follows the `classes.py` specification for a `Dataset`. 
@@ -12,9 +12,9 @@ All files that belong to a dataset are parsed together as a single Python object
   * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`.
   We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
 
-### Running a system
+## Running a system
 
-#### Code components
+### Code components
 
 A prediction system on one of the datasets is based on the following files:
 * `main.py` is the executable script that runs the system. It accepts the following command-line arguments: `input` (input directory), `config` (config file in YAML), `output` (location for storing of the produced predictions), and `pretrained` (an optional argument pointing to a location of a pretrained model, to skip retraining). An example configuration file can be found in `cfg/` and example outputs can be found in the `output/` folder. The configuration is loaded with help of a `configurator` code.
@@ -22,12 +22,32 @@ A prediction system on one of the datasets is based on the following files:
 * `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines two functions: `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
 * `utils.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 
-#### How to create a new system?
+### How to create a new system?
 
 Creating a new system essentially requires three steps:
 1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Please create your scripts in a subfolder for every new system (e.g., `predictor/neuralsystem/neuralsystem.py`) to allow us to keep track of new systems easier.
 2. Update/create the config file in `cfg/` to point to your new class and to the dataset you are working on.
 3. See the script `run_model.sh` for an example on how to run the example predictor over Hellaswag. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
+
+
+### Submitting to the leaderboard
+
+**Step 1: registration** Before submitting to the leaderboard, you need to contact ai2 to ask for submission access.
+
+**Step 2: creating a Docker image** Make sure you have Docker installed on your machine. If that is the case, you can create a docker image by running:
+
+`docker build -t ${IMAGE_NAME} -f docker/Dockerfile .`
+
+This will create a docker image with a name ${IMAGE_NAME} for you. All dependencies and prerequisites for your code should be found in docker/Dockerfile.
+
+**Step 3: create a Beaker image** To create a Beaker image, follow these steps:
+* [Sign up](https://beaker.org/) with Beaker
+* [Install the beaker CLI](https://github.com/allenai/beaker/blob/master/README.md) on your machine.
+* Create a Beaker image:
+
+`beaker image create --name ${NAMEYOURMODEL} ${USERNAM}/${REPO}:${TAG}`
+
+**Step 4: upload to the leaderboard** Use your Beaker image to [create a submission](https://leaderboard.allenai.org/socialiqa/submission/create) to the official leaderboard.
 
 ### What is a question and what is an answer?
 
