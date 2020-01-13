@@ -5,7 +5,8 @@ Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`
 
 ### Data and structure
 
-* The data can be found in the folder `data`. This folder contains one file per dataset, with all entries for both the train and the dev partitions (no test data is provided for the DARPA datasets). Each dataset file is structured as a single Python object following the `classes.py` specification for a `Dataset`. 
+* The data can be found in the folder `data`. This folder contains one folder per dataset, with all entries for both the train and the dev partitions (no test data is provided for the DARPA datasets). 
+All files that belong to a dataset are parsed together as a single Python object that follows the `classes.py` specification for a `Dataset`. 
 * `classes.py` describes two classes: `Dataset` and `Entry`.
   * A `Dataset` has a name and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries".
   * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`.
@@ -16,18 +17,19 @@ Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`
 #### Code components
 
 A prediction system on one of the datasets is based on the following files:
-* `main.py` is the executable script that runs the system. It accepts the following command-line arguments: `config` (config file in YAML), `output` (location for storing of the produced predictions), and `pretrained` (an optional argument pointing to a location of a pretrained model, to skip retraining). An example configuration file can be found in `cfg/` and example outputs can be found in the `output/` folder. The configuration is loaded with help of a `configurator` code.
+* `main.py` is the executable script that runs the system. It accepts the following command-line arguments: `input` (input directory), `config` (config file in YAML), `output` (location for storing of the produced predictions), and `pretrained` (an optional argument pointing to a location of a pretrained model, to skip retraining). An example configuration file can be found in `cfg/` and example outputs can be found in the `output/` folder. The configuration is loaded with help of a `configurator` code.
 * `end_to_end.py` contains an `EndToEnd` class with a number of standard data science functions (loading of data, training a model, applying a model to make predictions, evaluating those predictions).
 * `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines two functions: `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
 * `utils.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 
+See the script `run_model.sh` for an example on how to run the example predictor over Hellaswag.
+
 #### How to create a new system?
 
-Creating a new system essentially requires two steps:
+Creating a new system essentially requires three steps:
 1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Please create your scripts in a subfolder for every new system (e.g., `predictor/neuralsystem/neuralsystem.py`) to allow us to keep track of new systems easier.
-2. Update/create a config file in `cfg/` to point to your new class and to the dataset you are working on.
-
-After this, you should be able to run and evaluate your system by running `main.py`. Make sure you specify your config file (and, optionally, output directory and a pretrained model) as a command-line argument.
+2. Update/create the config file in `cfg/` to point to your new class and to the dataset you are working on.
+3. (if needed) update the `run_model.sh` script to use the right input/output directories and config file.
 
 ### What is a question and what is an answer?
 
@@ -61,18 +63,9 @@ The current baseline picks an answer randomly out of the set of possible answers
 
 ### Notes
 
-* The files in `data/` should contain everything that is given in the original data. 
 * Make sure you review the metadata: for instance, the `split_type` stored for Hellaswag can be valuable, as it indicates whether the question is in- or out-of-domain.
 * You might notice that the zeroth possible answer for the questions in the socialIQA dataset is an empty string. The reason for this is that the social IQA dataset labels are originally one-padded. This is already taken care of - you should be fine as long as your ssystem does not favor empty answers, but be careful when submitting an official system entry.
-* `inspect_data.py` computes some general statistics about each of the datasets based on their files. This can give you an idea of the amount of possible answers, or the average length of the question.
 * the folder `evaluation` has a python and a shell script that perform dedicated evaluation outside of the system script. These scripts can be useful to perform multi-dataset evaluation in a single run.
-
-
-#### Additional info (skip): Extraction procedure
-
-The extraction was performed using the scripts in `parsers` based on the data in `raw`. You don't need to worry about this process. If you do, it consists of the following rough steps:
-1. `wget` or manually download all Darpa datasets, and unzip them into subfolders of `data`.
-2. run `parsers/prepare_*.py` to create python objects for all datasets in the `data` folder. The objects follow the schema from `classes.py` and the parsers use the configuration specified in `config.py`.
 
 ### Contact
 

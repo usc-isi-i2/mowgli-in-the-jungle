@@ -1,2 +1,2 @@
 #! /bin/bash
-python main.py --config cfg/default.yaml --output output/ 
+python main.py --input data/hellaswag-train-dev --config cfg/default.yaml --output output/ 

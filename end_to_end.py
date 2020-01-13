@@ -4,6 +4,7 @@ import logging
 
 from predictor.predictor import Predictor
 import utils
+import parser
 
 class EndToEnd:
     """
@@ -17,9 +18,8 @@ class EndToEnd:
         """
         self.predictor = predictor
 
-    def load_dataset(self, filename):
-        with open(filename, 'rb') as d:
-            data=pickle.load(d)
+    def load_dataset(self, datadir, name):
+        data=parser.parse_dataset(datadir, name)
         return data
 
     def get_data_partition(self, dataset, partition):
