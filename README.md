@@ -34,13 +34,16 @@ Creating a new system essentially requires three steps:
 
 ### IIb. Submitting to the leaderboard
 
-**Step 1: registration** Before submitting to the leaderboard, you need to contact ai2 to ask for submission access.
+**Step 1: registration** Before submitting to the leaderboard, you need to contact AI2 (leaderboard@allenai.org) and ask for submission access.
 
-**Step 2: creating a Docker image** Make sure you have Docker installed on your machine. If that is the case, you can create a docker image by running:
+**Step 2: creating a Docker image** 
+* Make sure you have Docker installed on your machine
+* all dependencies and prerequisites for your code should be placed in `docker/Dockerfile` (feel free to create a new customized `Dockerfile`).
+* create a docker image by running:
 
 `docker build -t ${IMAGE_NAME} -f docker/Dockerfile .`
 
-This will create a docker image with a name ${IMAGE_NAME} for you. All dependencies and prerequisites for your code should be found in docker/Dockerfile.
+This will create a docker image with a name ${IMAGE_NAME} for you, based on the configuration in `docker/Dockerfile`. 
 
 **Step 3: create a Beaker image** To create a Beaker image, follow these steps:
 * [Sign up](https://beaker.org/) with Beaker
