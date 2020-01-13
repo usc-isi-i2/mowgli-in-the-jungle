@@ -47,7 +47,7 @@ def process_dataset(input_dir, config_file, output_dir, pretrained_model):
     logging.debug('Dev set accuracy: %f' % dev_acc)
 
     if len(test_data):
-        test_predictions=etoe.predict(model, test_data, config['store_predictions'], output_dir, 'test')
+        test_predictions=etoe.predict(model, test_data, True, output_dir, 'predictions')
 
     print('done!')
 
