@@ -22,14 +22,12 @@ A prediction system on one of the datasets is based on the following files:
 * `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines two functions: `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
 * `utils.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 
-See the script `run_model.sh` for an example on how to run the example predictor over Hellaswag.
-
 #### How to create a new system?
 
 Creating a new system essentially requires three steps:
 1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Please create your scripts in a subfolder for every new system (e.g., `predictor/neuralsystem/neuralsystem.py`) to allow us to keep track of new systems easier.
 2. Update/create the config file in `cfg/` to point to your new class and to the dataset you are working on.
-3. (if needed) update the `run_model.sh` script to use the right input/output directories and config file.
+3. See the script `run_model.sh` for an example on how to run the example predictor over Hellaswag. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
 
 ### What is a question and what is an answer?
 
