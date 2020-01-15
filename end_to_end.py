@@ -18,8 +18,8 @@ class EndToEnd:
         """
         self.predictor = predictor
 
-    def load_dataset(self, datadir, name):
-        data=parser.parse_dataset(datadir, name)
+    def load_dataset(self, datadir, name, max_rows=None):
+        data=parser.parse_dataset(datadir, name, max_rows)
         return data
 
     def get_data_partition(self, dataset, partition):

@@ -21,6 +21,9 @@ class ST(Predictor):
     def predict(self, model: Any, entry: Entry) -> List:
         question=entry.question
         answers=entry.answers
+        print()
+        print(question, answers)
+        print(entry.correct_answer)
 
         answer_embeddings = model.encode(answers)
         query_embeddings = model.encode(question)

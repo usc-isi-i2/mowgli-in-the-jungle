@@ -20,7 +20,7 @@ def process_dataset(input_dir, config_file, output_dir, pretrained_model):
     etoe = EndToEnd(predictor)
 
     # LOAD DATASET PARTITIONS
-    dataset=etoe.load_dataset(input_dir, config['dataname'])
+    dataset=etoe.load_dataset(input_dir, config['dataname'], int(config['datarows']) if 'datarows' in config.keys() else None)
 
     train_data=etoe.get_data_partition(dataset, 'train')
     train_data=etoe.preprocess_partition(train_data)
