@@ -3,7 +3,8 @@ predictor:
   class: predictor.example_predictor.example_predictor.ExamplePredictor
 
 # Dataset
-dataname: "hellaswag"
+dataname: "anli"
 
 # Settings
+evaluate_training: false
 store_predictions: true
