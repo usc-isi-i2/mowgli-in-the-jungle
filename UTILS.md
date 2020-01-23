@@ -3,7 +3,7 @@ The purpose of this file is to keep track of utility functions that we want to h
 Status is one of: not started, in progress, finished. Further details on the status should be placed in `Comment`.
 
 | Function name | Input params | Output params | Function description | Contributor(s) | Status | Comment | File |
-| ------------- | ------------- | ------------- | -------------------------- | ------------- | ------------- | ------------- |
+| ------------- | ------------- | ------------- | -------------------------- | ------------- | ------------- | ------------- | ------------- |
 | compute_paths | `from`, `to`, `L`, `**kwargs` | paths | Efficiently compute paths of max length `L` from one node to another. | | | | 
 | syntax_parser | `text`, `**kwargs` | `result` | Parse provided text to produce a resulting SRL-like output, e.g., using HCI's parser. | | | |
 | frame_parser | `text`, `**kwargs` | `result` | Parse provided text to produce a resulting output mapped to FrameNet. | | | |
