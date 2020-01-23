@@ -11,3 +11,4 @@ Status is one of: not started, in progress, finished. Further details on the sta
 | obtain_nodes_by_lexical_matching | `graph`, `labels`, `fields=['labels', 'aliases']`, `**kwargs` | `node_ids` | Obtain list of node IDs based on lexical matching of a bunch of labels over the fields "labels" and/or "aliases". | | | |
 | obtain_node_labels | `graph`, `node_ids`, `fields=['labels', 'aliases']`, `**kwargs` | `labels` | Obtain node labels based on a list of node IDs. | | | |
 | obtain_associated_nodes | `graph`, `node_ids`, `**kwargs` | `node_ids` | Obtain list of node IDs that are directly connected with the nodes in `node_ids` (either as subjects or objects). | | | |
+| run_lm | `model`, `tokenizer`, `config_json`, `data` | `output` | Run a language model on the sentences in `data`, and produce a list of representations called `output`. | | | |
