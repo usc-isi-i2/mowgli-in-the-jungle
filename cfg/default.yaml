@@ -1,9 +1,11 @@
 # Classes
 predictor:
-  class: predictor.example_predictor.example_predictor.ExamplePredictor
+  class: predictor.sentence_transformer.sentence_transformer.ST
 
 # Dataset
 dataname: "hellaswag"
 
 # Settings
+evaluate_training: false
 store_predictions: true
+datarows: 10

@@ -26,9 +26,10 @@ def _part_bs(item):
         return item['ctx_b']
 
 def compose_hs_question(item):
-    p1=_part_a(item)
-    p2=_part_bs(item)
-    p3=item['activity_label']
+
+    p1=item['activity_label']
+    p2=_part_a(item)
+    p3=_part_bs(item)
 
     return [p1, p2, p3]
 
@@ -43,7 +44,7 @@ def combine_anli_answers(item, offset):
 
 #################### PARSERS ###########################
 
-def prepare_anli_dataset(inputdir, dataname):
+def prepare_anli_dataset(inputdir, dataname, max_rows=None):
     config_data=config.cfg['anli']
 
     # Load dataset examples
@@ -58,6 +59,7 @@ def prepare_anli_dataset(inputdir, dataname):
 
         with open(input_file, 'r') as f:
             for index, l in enumerate(f):
+                if max_rows and index>=max_rows: break
                 item = json.loads(l)
                 split_data=getattr(dataset, split)
                 print(l)
@@ -71,7 +73,7 @@ def prepare_anli_dataset(inputdir, dataname):
                 split_data.append(an_entry)
     return dataset
 
-def prepare_hellaswag_dataset(inputdir, dataname):
+def prepare_hellaswag_dataset(inputdir, dataname, max_rows=None):
     config_data=config.cfg['hellaswag']
 
     # Load dataset examples
@@ -86,6 +88,7 @@ def prepare_hellaswag_dataset(inputdir, dataname):
 
         with open(input_file, 'r') as f:
             for index, l in enumerate(f):
+                if max_rows and index>=max_rows: break
                 item = json.loads(l)
                 split_data=getattr(dataset, split)
                 print(l)
@@ -100,7 +103,7 @@ def prepare_hellaswag_dataset(inputdir, dataname):
                 split_data.append(an_entry)
     return dataset
 
-def prepare_socialiqa(inputdir, dataname):
+def prepare_socialiqa(inputdir, dataname, max_rows=None):
     config_data=config.cfg['socialiqa']
 
     # Load dataset examples
@@ -115,6 +118,7 @@ def prepare_socialiqa(inputdir, dataname):
 
         with open(input_file, 'r') as f:
             for index, l in enumerate(f):
+                if max_rows and index>=max_rows: break
                 item = json.loads(l)
                 split_data=getattr(dataset, split)
                 #print(l)
@@ -128,7 +132,7 @@ def prepare_socialiqa(inputdir, dataname):
                 split_data.append(an_entry)
     return dataset
 
-def prepare_physicaliqa(inputdir, dataname):
+def prepare_physicaliqa(inputdir, dataname, max_rows=None):
     config_data=config.cfg['physicaliqa']
 
     # Load dataset examples
@@ -143,6 +147,7 @@ def prepare_physicaliqa(inputdir, dataname):
 
         with open(input_file, 'r') as f:
             for index, l in enumerate(f):
+                if max_rows and index>=max_rows: break
                 item = json.loads(l)
                 split_data=getattr(dataset, split)
                 print(l)
@@ -156,14 +161,14 @@ def prepare_physicaliqa(inputdir, dataname):
                 split_data.append(an_entry)
     return dataset
 
-def parse_dataset(datadir, name):
+def parse_dataset(datadir, name, max_rows=None):
     if name in ['anli', 'alphanli']:
-        return prepare_anli_dataset(datadir, name)
+        return prepare_anli_dataset(datadir, name, max_rows)
     elif name in ['hellaswag', 'hs']:
-        return prepare_hellaswag_dataset(datadir, name)
+        return prepare_hellaswag_dataset(datadir, name, max_rows)
     elif name in ['physicaliqa', 'piqa']:
-        return prepare_physicaliqa(datadir, name)
+        return prepare_physicaliqa(datadir, name, max_rows)
     elif name in ['socialiqa', 'siqa']:
-        return prepare_socialiqa(datadir, name)
+        return prepare_socialiqa(datadir, name, max_rows)
     else:
         return 'Error: dataset name does not exist!'

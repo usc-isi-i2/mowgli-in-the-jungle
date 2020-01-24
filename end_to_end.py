@@ -18,12 +18,15 @@ class EndToEnd:
         """
         self.predictor = predictor
 
-    def load_dataset(self, datadir, name):
-        data=parser.parse_dataset(datadir, name)
+    def load_dataset(self, datadir, name, max_rows=None):
+        data=parser.parse_dataset(datadir, name, max_rows)
         return data
 
     def get_data_partition(self, dataset, partition):
         return getattr(dataset, partition)
+
+    def preprocess_partition(self, part_data):
+        return self.predictor.preprocess(part_data)
 
     def train_model(self, train_data, dev_data):
         start_time = time.time()
@@ -42,7 +45,7 @@ class EndToEnd:
 
     def predict(self, model, entries, store_bool, output_dir, partition):
         answers=[]
-        for entry in entries:
+        for i, entry in enumerate(entries):
             answer=self.predictor.predict(model, entry)
             answers.append(answer)
         if store_bool:
