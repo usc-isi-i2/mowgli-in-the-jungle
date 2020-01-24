@@ -144,7 +144,7 @@ if __name__ == '__main__':
                         help="path to mowgli nodes.csv file")
 
     args = parser.parse_args()
-
+    logger.info(f'got: {args}')
     # mowgli_nodes_path = os.path.expanduser(f"~/mowgli/mowgli_data/{name}/nodes_v002.csv")
     # mowgli_edges_path = os.path.expanduser(f"~/mowgli/mowgli_data/{name}/edges_v002.csv")
     # graphml_path = os.path.expanduser(f'~/mowgli/graph_data/{name}.graphml')
