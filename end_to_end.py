@@ -3,7 +3,7 @@ import pickle
 import logging
 
 from predictor.predictor import Predictor
-import utils
+import utils.general as utils
 import parser
 
 class EndToEnd:

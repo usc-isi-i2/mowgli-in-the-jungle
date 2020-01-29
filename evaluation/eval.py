@@ -5,7 +5,7 @@ import json
 import sys
 
 sys.path.append('../')
-import utils
+import utils.general as utils
 
 def main(args):
     labels_file = args.labels_file

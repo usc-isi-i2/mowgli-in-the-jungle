@@ -6,7 +6,7 @@ import sys
 
 import classes
 import parser_config as config
-import utils
+import utils.general as utils
 
 ################## Utility functions #######################
 
