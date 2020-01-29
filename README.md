@@ -20,7 +20,6 @@ A prediction system on one of the datasets is based on the following files:
 * `main.py` is the executable script that runs the system. It accepts the following command-line arguments: `input` (input directory), `config` (config file in YAML), `output` (location for storing of the produced predictions), and `pretrained` (an optional argument pointing to a location of a pretrained model, to skip retraining). An example configuration file can be found in `cfg/` and example outputs can be found in the `output/` folder. The configuration is loaded with help of a `configurator` code.
 * `end_to_end.py` contains an `EndToEnd` class with a number of standard data science functions (loading of data, training a model, applying a model to make predictions, evaluating those predictions).
 * `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines three functions: `preprocess`, `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
-* `utils.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 
 ## II. Developing a system
 
@@ -30,6 +29,14 @@ Creating a new system essentially requires three steps:
 1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Please create your scripts in a subfolder for every new system (e.g., `predictor/neuralsystem/neuralsystem.py`) to allow us to keep track of new systems easier.
 2. Update/create the config file in `cfg/` to point to your new class and to the dataset you are working on.
 3. See the script `run_model.sh` for an example on how to run the example predictor over ANLI. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
+
+### IIb. Utility functions
+
+To help us easily build systems, reuse code, and avoid bugs, we are working on a base of utility functions. The list of utility functions that we are intending to build is kept in [UTILS.md].
+
+The functions can be found in the `utils` folder. Overview of the functions implemented so far:
+* `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
+* `graph-tool` contains functions useful for the `graph-tool` library.
 
 ### IIb. Submitting to the leaderboard
 
