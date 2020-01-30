@@ -12,7 +12,7 @@ except ImportError:
 
     logger = logging.get_logger(__name__)
 
-def load_graph(graph_path):
+def load_gt_graph(graph_path):
     """Load a graph in graphml or gt format."""
     from graph_tool.all import load_graph
     logger.info(f"loading the generated graph file from {graph_path}")
@@ -129,7 +129,7 @@ def transform_to_graphtool_format(mowgli_nodes_path: str, mowgli_edges_path: str
         fp.write(graph_bottom)
 
     if do_gt:
-        g=load_graph(graphml_path)
+        g=load_gt_graph(graphml_path)
         gt_path = graphml_path.replace(".graphml", '.gt')
         logger.info(f'saving gt output at {gt_path}')
         g.save(gt_path)
