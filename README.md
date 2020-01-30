@@ -24,7 +24,7 @@ A prediction system on one of the datasets is based on the following files:
 ## II. Prepare your environment
 
 * `pip install -r requirements.txt` 
-* `conda install -c conda-forge graph-tool`
+* Install `graph-tool`. If you use conda, then you can run `conda install -c conda-forge graph-tool`, else see these [instructions](https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions). 
 
 If you experience issues, let me know.
 
