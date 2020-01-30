@@ -12,6 +12,12 @@ except ImportError:
 
     logger = logging.get_logger(__name__)
 
+def load_graph(graph_path):
+    """Load a graph in graphml or gt format."""
+    from graph_tool.all import load_graph
+    logger.info(f"loading the generated graph file from {graph_path}")
+    g = load_graph(graph_path)
+    return g
 
 def file_len(fname):
     p = subprocess.Popen(['wc', '-l', fname], stdout=subprocess.PIPE,
@@ -21,14 +27,13 @@ def file_len(fname):
         raise IOError(err)
     return int(result.strip().split()[0])
 
-
-def main(mowgli_nodes_path: str, mowgli_edges_path: str, graphml_path: str, do_gt: bool):
+def transform_to_graphtool_format(mowgli_nodes_path: str, mowgli_edges_path: str, graphml_path: str, do_gt: bool):
     n_nodes = file_len(mowgli_nodes_path)
     n_edges = file_len(mowgli_edges_path)
 
     logger.info(f'n_nodes: {n_nodes}, n_edges:{n_edges}')
 
-    CHUNCK = 100 * 1000
+    CHUNK = 100 * 1000
 
     graph_header = """<?xml version="1.0" encoding="UTF-8"?>
     <graphml xmlns="http://graphml.graphdrawing.org/xmlns"  
@@ -65,13 +70,13 @@ def main(mowgli_nodes_path: str, mowgli_edges_path: str, graphml_path: str, do_g
         total = 0.0
         last = False
         tbar = tqdm(total=100)
-        step = round(float(CHUNCK) / max_len * 100, 1)
+        step = round(float(CHUNK) / max_len * 100, 1)
         while not last:
             #         logger.info(f'Processed nodes {int((total/max_len)*100)}%')
             df = df_iter.get_chunk()
 
-            total += CHUNCK
-            if len(df) < CHUNCK:
+            total += CHUNK
+            if len(df) < CHUNK:
                 last = True
             (df.fillna('')
              .applymap(lambda s: str(s).translate(lut))
@@ -90,7 +95,7 @@ def main(mowgli_nodes_path: str, mowgli_edges_path: str, graphml_path: str, do_g
         df_iter = pd.read_csv(
             mowgli_nodes_path, sep='\t', header=0,
             names=["id", "label", "aliases", "pos", 'datasource', 'other'],
-            index_col=None, iterator=True, chunksize=CHUNCK)
+            index_col=None, iterator=True, chunksize=CHUNK)
 
         def node_string(row):
             nid = row['id']
@@ -107,7 +112,7 @@ def main(mowgli_nodes_path: str, mowgli_edges_path: str, graphml_path: str, do_g
         df_iter = pd.read_csv(
             mowgli_edges_path, sep='\t', header=0,
             names=['subject', 'predicate', 'object', 'datasource', 'weight', 'other'],
-            index_col=None, iterator=True, chunksize=CHUNCK)
+            index_col=None, iterator=True, chunksize=CHUNK)
 
         def edge_string(row):
             subj = row['subject']
@@ -124,24 +129,22 @@ def main(mowgli_nodes_path: str, mowgli_edges_path: str, graphml_path: str, do_g
         fp.write(graph_bottom)
 
     if do_gt:
-        from graph_tool.all import load_graph
-        logger.info(f"loading the generated graphml file from {graphml_path}")
-        g = load_graph(graphml_path)
+        g=load_graphml_graph(graphml_path)
         gt_path = graphml_path.replace(".graphml", '.gt')
         logger.info(f'saving gt output at {gt_path}')
         g.save(gt_path)
-
+    return g
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process a machine commonsense dataset')
     parser.add_argument("--nodes", default="~/mowgli/mowgli_data/all/nodes_v002.csv",
                         help="path to mowgli nodes.csv file")
     parser.add_argument("--edges", default="~/mowgli/mowgli_data/all/edges_v002.csv",
-                        help="path to mowgli nodes.csv file")
+                        help="path to mowgli edges.csv file")
     parser.add_argument("--output", default='~/mowgli/graph_data/all.graphml',
-                        help="path to mowgli nodes.csv file")
+                        help="output graphml file")
     parser.add_argument("--gt", action="store_true",
-                        help="path to mowgli nodes.csv file")
+                        help="whether to store to gt format too")
 
     args = parser.parse_args()
     logger.info(f'got: {args}')
@@ -151,5 +154,5 @@ if __name__ == '__main__':
 
     assert '.graphml' in args.output, f'output file must have \".graphml\" format. > {args.output} '
 
-    main(mowgli_edges_path=args.edges, mowgli_nodes_path=args.nodes,
+    g=transform_to_graphtool_format(mowgli_edges_path=args.edges, mowgli_nodes_path=args.nodes,
          graphml_path=args.output, do_gt=args.gt)
