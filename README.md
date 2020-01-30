@@ -34,9 +34,9 @@ Creating a new system essentially requires three steps:
 
 To help us easily build systems, reuse code, and avoid bugs, we are working on a base of utility functions. The list of utility functions that we are intending to build is kept in [UTILS.md](UTILS.md).
 
-The functions can be found in the `utils` folder. Overview of the functions implemented so far:
+The functions can be found in the `utils/` folder. Overview of the functions implemented so far:
 * `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
-* `graph-tool` contains functions useful for the `graph-tool` library.
+* `gt/` contains functions useful for the `graph-tool` library.
 
 ### IIc. Submitting to the leaderboard
 
