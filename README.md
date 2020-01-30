@@ -21,16 +21,20 @@ A prediction system on one of the datasets is based on the following files:
 * `end_to_end.py` contains an `EndToEnd` class with a number of standard data science functions (loading of data, training a model, applying a model to make predictions, evaluating those predictions).
 * `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines three functions: `preprocess`, `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
 
-## II. Developing a system
+## II. Prepare your environment
 
-### IIa. How to create a new system?
+Running `pip install -r requirements.txt` should suffice. If you experience issues, let me know.
+
+## III. Developing a system
+
+### IIIa. How to create a new system?
 
 Creating a new system essentially requires three steps:
-1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Please create your scripts in a subfolder for every new system (e.g., `predictor/neuralsystem/neuralsystem.py`) to allow us to keep track of new systems easier.
+1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Essentially, you need to implement the three methods: `preprocess`, `train` and `predict`, or a subset of them. Note that you should be able to add any parameters to these functions (if this fails, open an issue and we will fix it). Please use separate repositories for development of your system. 
 2. Update/create the config file in `cfg/` to point to your new class and to the dataset you are working on.
 3. See the script `run_model.sh` for an example on how to run the example predictor over ANLI. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
 
-### IIb. Utility functions
+### IIIb. Utility functions
 
 To help us easily build systems, reuse code, and avoid bugs, we are working on a base of utility functions. The list of utility functions that we are intending to build is kept in [UTILS.md](UTILS.md).
 
@@ -38,7 +42,7 @@ The functions can be found in the `utils/` folder. Overview of the functions imp
 * `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 * `gt/` contains functions useful for the `graph-tool` library.
 
-### IIc. Submitting to the leaderboard
+### IIIc. Submitting to the leaderboard
 
 **Step 1: registration** Before submitting to the leaderboard, you need to contact AI2 (leaderboard@allenai.org) and ask for submission access.
 
@@ -60,9 +64,9 @@ This will create a docker image with a name ${IMAGE_NAME} for you, based on the 
 
 **Step 4: upload to the leaderboard** Use your Beaker image to [create a submission](https://leaderboard.allenai.org/socialiqa/submission/create) on the official leaderboard.
 
-## III. Additional information
+## IV. Additional information
 
-### IIIa. What is a question and what is an answer?
+### IVa. What is a question and what is an answer?
 
 Even though we make efforts to unify the formats across datasets, please make sure you understand what each field means in the context of the dataset you are working on. The main variation between the datasets is found in the kind of information given in the question. Here is a specification of what is given within the question of each of our 4 supported datasets (the elements 0, 1, and 2 constitute the `question` list):
 
@@ -81,7 +85,7 @@ For more (complementary) information, please consult the original dataset websit
 
 The only exception here is aNLI, where the answer is the middle event between `observation 1` and `observation 2`, i.e., information that fills the gap between the two observations.
 
-### IIIb. `ExamplePredictor` random baseline performance
+### IVb. `ExamplePredictor` random baseline performance
 
 The current baseline picks an answer randomly out of the set of possible answers. Given that the number of possible answers per dataset is between 2 and 4, the baseline accuracy varies between roughly 25 and 50%. Specifically:
 
@@ -92,12 +96,12 @@ The current baseline picks an answer randomly out of the set of possible answers
 | PhysicalIQA |        50%        |
 |  SocialIQA  |      33.(3)%      |
 
-### IIIc. Notes and suggestions
+### IVc. Notes and suggestions
 
 * Make sure you review the metadata: for instance, the `split_type` stored for Hellaswag can be valuable, as it indicates whether the question is in- or out-of-domain.
 * You might notice that the zeroth possible answer for the questions in the socialIQA dataset is an empty string. The reason for this is that the social IQA dataset labels are originally one-padded. This is already taken care of - you should be fine as long as your ssystem does not favor empty answers, but be careful when submitting an official system entry.
 * the folder `evaluation` has a python and a shell script that perform dedicated evaluation outside of the system script. These scripts can be useful to perform multi-dataset evaluation in a single run.
 
-## IV. Contact
+## V. Contact
 
 Filip Ilievski (ilievski@isi.edu)
