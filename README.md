@@ -23,7 +23,10 @@ A prediction system on one of the datasets is based on the following files:
 
 ## II. Prepare your environment
 
-Running `pip install -r requirements.txt` should suffice. If you experience issues, let me know.
+* `pip install -r requirements.txt` 
+* `conda install -c conda-forge graph-tool`
+
+If you experience issues, let me know.
 
 ## III. Developing a system
 
