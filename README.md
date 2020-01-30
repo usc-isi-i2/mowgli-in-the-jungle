@@ -30,7 +30,7 @@ Running `pip install -r requirements.txt` should suffice. If you experience issu
 ### IIIa. How to create a new system?
 
 Creating a new system essentially requires three steps:
-1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Please create your scripts in a subfolder for every new system (e.g., `predictor/neuralsystem/neuralsystem.py`) to allow us to keep track of new systems easier.
+1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Essentially, you need to implement the three methods: `preprocess`, `train` and `predict`, or a subset of them. Note that you should be able to add any parameters to these functions (if this fails, open an issue and we will fix it). Please use separate repositories for development of your system. 
 2. Update/create the config file in `cfg/` to point to your new class and to the dataset you are working on.
 3. See the script `run_model.sh` for an example on how to run the example predictor over ANLI. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
 
