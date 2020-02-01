@@ -13,3 +13,4 @@ Status is one of: not started, in progress, finished. Further details on the sta
 | obtain_node_labels | `graph`, `node_ids`, `fields=['labels', 'aliases']`, `**kwargs` | `labels` | Obtain node labels based on a list of node IDs. | | | |
 | obtain_associated_nodes | `graph`, `node_ids`, `**kwargs` | `node_ids` | Obtain list of node IDs that are directly connected with the nodes in `node_ids` (either as subjects or objects). | | | |
 | run_lm | `model`, `tokenizer`, `config_json`, `data` | `output` | Run a language model on the sentences in `data`, and produce a list of representations called `output`. | | | |
+| ground_to_cn | `sentence` | `grounded_objs` | Ground a sentence and link to ConceptNet. | Sameer/Peifeng/Jun | | | |
