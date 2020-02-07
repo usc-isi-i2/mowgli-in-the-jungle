@@ -5,12 +5,7 @@ from tqdm import tqdm
 import subprocess
 import pandas as pd
 
-try:
-    from loguru import logger
-except ImportError:
-    import logging
-
-    logger = logging.get_logger(__name__)
+from loguru import logger
 
 def load_gt_graph(graph_path):
     """Load a graph in graphml or gt format."""

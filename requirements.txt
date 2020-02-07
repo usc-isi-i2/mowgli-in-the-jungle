@@ -6,3 +6,4 @@ numpy==1.17.2
 sentence_transformers==0.2.5
 PyYAML==5.3
 scikit_learn==0.22.1
+seaborn==0.10.0
