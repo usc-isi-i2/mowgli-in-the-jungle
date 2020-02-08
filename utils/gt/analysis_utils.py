@@ -1,6 +1,7 @@
 import graph_tool as gtmain
 import graph_tool.all as gtall
 import numpy as np
+from collections import defaultdict
 
 import matplotlib.pyplot as plt
 plt.rcParams.update({'font.size': 12})
@@ -64,3 +65,9 @@ def compute_stats(g, direction):
             'node_hubs': hits_eig
             }
 
+def get_topN_relations(g, N=10):
+    rel_freq=defaultdict(int)
+    for i, e in enumerate(g.edges()):
+        r=g.edge_properties['predicate'][e]
+        rel_freq[r]+=1
+    return sorted(rel_freq.items(), key=lambda x: x[1], reverse=True)[:N]
