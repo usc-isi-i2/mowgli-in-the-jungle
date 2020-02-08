@@ -39,10 +39,10 @@ def plot_degrees(degrees, plottype='loglog', base=10, xlabel='', ylabel='', titl
     
 def compute_betweenness(g):
     bn, be=gtmain.centrality.betweenness(g)
-    return np.mean(bn), np.mean(be)
+    return bn, be
 
 def compute_pagerank(g):
-    return np.mean(gtmain.centrality.pagerank(g))
+    return gtmain.centrality.pagerank(g)
 
 def compute_hits(g):
     return gtmain.centrality.hits(g)
