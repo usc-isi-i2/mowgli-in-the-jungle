@@ -42,27 +42,42 @@ def compute_betweenness(g):
     return bn, be
 
 def compute_pagerank(g):
-    return gtmain.centrality.pagerank(g)
+    v_pr = g.new_vertex_property('float')
+    gtmain.centrality.pagerank(g, prop=v_pr)
+    return v_pr
 
 def compute_hits(g):
-    return gtmain.centrality.hits(g)
+    hits_eig, v_hubs, v_auth=gtmain.centrality.hits(g)
+    return hits_eig, v_hubs, v_auth
     
+def get_max_node(g, prop):
+    max_pr=0.0
+    max_pr_vertex=None
+    for v in g.vertices():
+        vertex_pr=g.vp[prop][v]
+        if vertex_pr>max_pr:
+            max_pr=vertex_pr
+            max_pr_vertex=g.vp['_graphml_vertex_id'][v]
+    
+    return max_pr, max_pr_vertex
+
+def get_topn_indices(g, prop, n):
+    a=g.vp[prop].a
+    ind = np.argpartition(a, -n)[-n:]
+    for i in ind:
+        print(i, g.vp['_graphml_vertex_id'][i], g.vp[prop][i])
+    return
+
 #### RUN ALL STATS ####
     
 def compute_stats(g, direction):
     avg_degree, stdev_degree=compute_avg_node_degree(g, direction)
-    nb, eb=compute_betweenness(g)
-    hits_eig, hits_hubs, hits_auth=compute_hits(g)
     return {
             'num_nodes': get_num_nodes(g),
             'num_edges': get_num_edges(g),
             'avg_degree': avg_degree,
             'degree_maxn_counts': get_degree_maxn_counts(g, direction),
-            'stdev_degree': stdev_degree,
-            'node_betweenness': nb,
-            'edge_betweenness': eb,
-            'node_pagerank': compute_pagerank(g),
-            'node_hubs': hits_eig
+            'stdev_degree': stdev_degree
             }
 
 def get_topN_relations(g, N=10):
