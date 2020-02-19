@@ -1,4 +1,6 @@
+.DS_Store
 kb/
+.ipynb_checkpoints/
 __pycache__/
 __MACOSX
-
+mowgli-uci/
