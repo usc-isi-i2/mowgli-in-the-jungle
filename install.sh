@@ -12,4 +12,3 @@ gunzip numberbatch-en-19.08.txt.gz
 cd ..
 
 pip install -r requirements.txt
-conda install -c conda-forge graph-tool
