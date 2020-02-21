@@ -8,4 +8,4 @@ dataname: "siqa"
 # Settings
 evaluate_training: false
 store_predictions: true
-datarows: 10
+datarows: 1000000
