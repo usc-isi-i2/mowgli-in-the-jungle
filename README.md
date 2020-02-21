@@ -28,7 +28,6 @@ A prediction system on one of the datasets is based on the following files:
 * `git clone https://github.com/usc-isi-i2/mowgli-uci`
 * install the pre-requisites for Mowgli UCI (see their readme)
 * `pip install -r requirements.txt` 
-* Install `graph-tool`. If you use conda, then you can run `conda install -c conda-forge graph-tool`, else see these [instructions](https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions). 
 
 An automated script that installs all above steps can be found in `install.sh`. As this script is not yet thoroughly tested, you might be better off executing the installation steps yourself.
 
