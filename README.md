@@ -23,7 +23,7 @@ A prediction system on one of the datasets is based on the following files:
 
 ## II. Prepare your environment
 
-**Note:** We recommend that you run this code within a virtual environment. Especially the `graph-tool` library has been known to cause installation problems, since it is a C++ wrapper and it requires a lot of packages to be updated/installed.
+**Note:** We recommend that you run this code within a virtual environment.
 
 * `git clone https://github.com/usc-isi-i2/mowgli-uci`
 * install the pre-requisites for Mowgli UCI (see their readme)
@@ -46,7 +46,7 @@ To help us easily build systems, reuse code, and avoid bugs, we are working on a
 
 The functions can be found in the `utils/` folder. Overview of the functions implemented so far:
 * `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
-* `gt/` contains functions useful for the `graph-tool` library.
+* `grounding/` contains functions for grounding the input to a KB.
 
 ### IIIc. Submitting to the leaderboard
 
