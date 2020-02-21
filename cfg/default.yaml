@@ -1,6 +1,6 @@
 # Classes
 predictor:
-  class: predictor.uci_hogn.uci_hogn.MowgliPredictor
+  class: predictor.mowgli_predictor.mowgli_predictor.MowgliPredictor
 
 # Dataset
 dataname: "siqa"
@@ -8,4 +8,4 @@ dataname: "siqa"
 # Settings
 evaluate_training: false
 store_predictions: true
-datarows: 1000000
+datarows: 10
