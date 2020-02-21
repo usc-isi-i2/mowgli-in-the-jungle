@@ -1,6 +1,9 @@
+.cache
 .DS_Store
 kb/
 .ipynb_checkpoints/
 __pycache__/
 __MACOSX
 mowgli-uci/
+numberbatch-en-19.08.txt
+output/

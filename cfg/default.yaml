@@ -1,9 +1,9 @@
 # Classes
 predictor:
-  class: predictor.sentence_transformer.sentence_transformer.ST
+  class: predictor.mowgli_predictor.mowgli_predictor.MowgliPredictor
 
 # Dataset
-dataname: "hellaswag"
+dataname: "siqa"
 
 # Settings
 evaluate_training: false

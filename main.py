@@ -23,15 +23,15 @@ def process_dataset(input_dir, config_file, output_dir, pretrained_model):
     dataset=etoe.load_dataset(input_dir, config['dataname'], int(config['datarows']) if 'datarows' in config.keys() else None)
 
     train_data=etoe.get_data_partition(dataset, 'train')
-    train_data=etoe.preprocess_partition(train_data)
+    train_data=etoe.preprocess_partition(train_data, 'train')
     logging.debug("Training examples: %d" % len(train_data))
 
     dev_data=etoe.get_data_partition(dataset, 'dev')
-    dev_data=etoe.preprocess_partition(dev_data)
+    dev_data=etoe.preprocess_partition(dev_data, 'dev')
     logging.debug("Dev examples: %d" % len(dev_data))
 
     test_data=etoe.get_data_partition(dataset, 'test')
-    test_data=etoe.preprocess_partition(test_data)
+    test_data=etoe.preprocess_partition(test_data, 'test')
     logging.debug("Test examples: %d" % len(test_data))
     
     # Train your model, or load a pretrained one
