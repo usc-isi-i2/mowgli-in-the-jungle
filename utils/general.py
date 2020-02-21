@@ -2,6 +2,11 @@ from sklearn.metrics import accuracy_score
 from typing import List
 import os
 
+def divide_chunks(l, n):
+	# looping till length l 
+	for i in range(0, len(l), n):
+		yield l[i:i + n]
+
 def load_predictions(input_file: str) -> List[str]:
     lines = []
     with open(input_file, "rb") as f:
