@@ -47,6 +47,7 @@ To help us easily build systems, reuse code, and avoid bugs, we are working on a
 The functions can be found in the `utils/` folder. Overview of the functions implemented so far:
 * `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 * `grounding/` contains functions for grounding the input to a KB.
+* For graph functionalities, see `https://github.com/usc-isi-i2/kgtk`.
 
 ### IIIc. Submitting to the leaderboard
 
