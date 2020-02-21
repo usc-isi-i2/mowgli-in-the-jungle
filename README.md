@@ -25,10 +25,12 @@ A prediction system on one of the datasets is based on the following files:
 
 **Note:** We recommend that you run this code within a virtual environment. Especially the `graph-tool` library has been known to cause installation problems, since it is a C++ wrapper and it requires a lot of packages to be updated/installed.
 
+* `git clone https://github.com/ucinlp/mowgli-uci.git`
+* install the pre-requisites for Mowgli UCI (see their readme)
 * `pip install -r requirements.txt` 
 * Install `graph-tool`. If you use conda, then you can run `conda install -c conda-forge graph-tool`, else see these [instructions](https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions). 
 
-If you experience issues, let me know.
+An automated script that installs all above steps can be found in `install.sh`. As this script is not yet thoroughly tested, you might be better off executing the installation steps yourself.
 
 ## III. Developing a system
 
