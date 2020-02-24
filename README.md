@@ -3,6 +3,14 @@ The `mowgli-in-the-jungle` framework facilitates the development of solutions on
 
 Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
 
+The framework supports a typical experiment flow: 
+1. load dataset
+2. create predictions 
+3. store predictions
+4. evaluate
+
+When developing a solution, you should **only worry about step 2: developing a system that creates predictions**. 
+
 ## I. Data and code
 
 ### Ia. Data
@@ -25,51 +33,25 @@ A prediction system on one of the datasets is based on the following files:
 
 **Note:** We recommend that you run this code within a virtual environment.
 
-* `git clone https://github.com/usc-isi-i2/mowgli-uci`
-* install the pre-requisites for Mowgli UCI (see their readme)
 * `pip install -r requirements.txt` 
-
-An automated script that installs all above steps can be found in `install.sh`. As this script is not yet thoroughly tested, you might be better off executing the installation steps yourself.
 
 ## III. Developing a system
 
-### IIIa. How to create a new system?
+### IIIa. Utility functions
 
-Creating a new system essentially requires three steps:
-1. Create a new class in `predictor/` that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Essentially, you need to implement the three methods: `preprocess`, `train` and `predict`, or a subset of them. Note that you should be able to add any parameters to these functions (if this fails, open an issue and we will fix it). Please use separate repositories for development of your system. 
-2. Update/create the config file in `cfg/` to point to your new class and to the dataset you are working on.
-3. See the script `run_model.sh` for an example on how to run the example predictor over ANLI. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
-
-### IIIb. Utility functions
-
-To help us easily build systems, reuse code, and avoid bugs, we are working on a base of utility functions. The list of utility functions that we are intending to build is kept in [UTILS.md](UTILS.md).
+To help us easily build systems, reuse code, and avoid bugs, we are working on a base of utility functions. The wishlist of utility functions that we are intending to build is kept in [UTILS.md](UTILS.md). An API specification can be found here.
 
 The functions can be found in the `utils/` folder. Overview of the functions implemented so far:
 * `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 * `grounding/` contains functions for grounding the input to a KB.
-* For graph functionalities, see `https://github.com/usc-isi-i2/kgtk`.
 
-### IIIc. Submitting to the leaderboard
+### IIIb. How to create a new system?
 
-**Step 1: registration** Before submitting to the leaderboard, you need to contact AI2 (leaderboard@allenai.org) and ask for submission access.
-
-**Step 2: creating a Docker image** 
-* Make sure you have Docker installed on your machine
-* all dependencies and prerequisites for your code should be placed in `docker/Dockerfile` (feel free to create a new customized `Dockerfile`).
-* create a docker image by running:
-
-  `docker build -t ${IMAGE_NAME} -f docker/Dockerfile .`
-
-This will create a docker image with a name ${IMAGE_NAME} for you, based on the configuration in `docker/Dockerfile`. 
-
-**Step 3: create a Beaker image** To create a Beaker image, follow these steps:
-* [Sign up](https://beaker.org/) with Beaker
-* [Install the beaker CLI](https://github.com/allenai/beaker/blob/master/README.md) on your machine.
-* Create a Beaker image:
-
-  `beaker image create --name ${NAMEYOURMODEL} ${USERNAM}/${REPO}:${TAG}`
-
-**Step 4: upload to the leaderboard** Use your Beaker image to [create a submission](https://leaderboard.allenai.org/socialiqa/submission/create) on the official leaderboard.
+Creating a new system essentially consists of four steps:
+1. Create a new repository in which you will clone this framework and optionally, other repositories. For example, `https://github.com/usc-isi-i2/mowgli-uci-hognet` extends the framework with a new system that combines UCI grounding and HOGNet reasoning.
+2.. Create a new class that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Essentially, you need to implement the three methods: `preprocess`, `train` and `predict`, or a subset of them. Note that you should be able to add any parameters to these functions.
+3. Update/create a config file to point to your new class and to the dataset you are working on (see `cfg/` for an example config).
+4. See the script `run_model.sh` for an example on how to run the example predictor over SIQA. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
 
 ## IV. Additional information
 
@@ -103,7 +85,30 @@ The current baseline picks an answer randomly out of the set of possible answers
 | PhysicalIQA |        50%        |
 |  SocialIQA  |      33.(3)%      |
 
-### IVc. Notes and suggestions
+### IVc. Submitting to the leaderboard
+
+**Step 1: registration** Before submitting to the leaderboard, you need to contact AI2 (leaderboard@allenai.org) and ask for submission access.
+
+**Step 2: creating a Docker image** 
+* Make sure you have Docker installed on your machine
+* all dependencies and prerequisites for your code should be placed in `docker/Dockerfile` (feel free to create a new customized `Dockerfile`).
+* create a docker image by running:
+
+  `docker build -t ${IMAGE_NAME} -f docker/Dockerfile .`
+
+This will create a docker image with a name ${IMAGE_NAME} for you, based on the configuration in `docker/Dockerfile`. 
+
+**Step 3: create a Beaker image** To create a Beaker image, follow these steps:
+* [Sign up](https://beaker.org/) with Beaker
+* [Install the beaker CLI](https://github.com/allenai/beaker/blob/master/README.md) on your machine.
+* Create a Beaker image:
+
+  `beaker image create --name ${NAMEYOURMODEL} ${USERNAM}/${REPO}:${TAG}`
+
+**Step 4: upload to the leaderboard** Use your Beaker image to [create a submission](https://leaderboard.allenai.org/socialiqa/submission/create) on the official leaderboard.
+
+
+### IVd. Notes and suggestions
 
 * Make sure you review the metadata: for instance, the `split_type` stored for Hellaswag can be valuable, as it indicates whether the question is in- or out-of-domain.
 * You might notice that the zeroth possible answer for the questions in the socialIQA dataset is an empty string. The reason for this is that the social IQA dataset labels are originally one-padded. This is already taken care of - you should be fine as long as your ssystem does not favor empty answers, but be careful when submitting an official system entry.
