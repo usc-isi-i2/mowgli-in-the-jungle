@@ -6,6 +6,8 @@ sys.path.append('mowgli-uci')
 import graphify
 import link
 
+##### Helper functions #####
+
 def get_concepts(nodes, normalize_nodes):
 	concepts=[]
 	for node_id, node_data in nodes.items():
@@ -19,9 +21,17 @@ def generate_instances(l):
 	for graph in l:
 		yield graph
 
+##### API #####
+
+def graphify_sentences(sentences):
+	return graphify.graphify_dataset(sentences)
+
+def link_concepts(graphs, embedding_file):
+	return link.link(generate_instances(graphs), embedding_file=embedding_file)
+
 def ground_dataset(sentences, embedding_file):
-    graphs=graphify.graphify_dataset(sentences)
+    graphs=graphify_sentences(sentences)
     print('GRAPHIFY', graphs)
-    linked_graphs=link.link(generate_instances(graphs), embedding_file=embedding_file)
+    linked_graphs=link_concepts(graphs, embedding_file)
     print('LINKIFY', linked_graphs)
     return linked_graphs

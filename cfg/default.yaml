@@ -1,6 +1,6 @@
 # Classes
 predictor:
-  class: predictor.mowgli_predictor.mowgli_predictor.MowgliPredictor
+  class: predictor.example_predictor.example_predictor.ExamplePredictor
 
 # Dataset
 dataname: "siqa"

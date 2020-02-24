@@ -6,7 +6,7 @@ from predictor.predictor import Predictor
 
 class ExamplePredictor(Predictor):
 
-    def preprocess(self, part_data:List) -> Any:
+    def preprocess(self, part_data:List, partition:str) -> Any:
         return part_data
         
     def train(self, train_data:List, dev_data: List) -> Any:
