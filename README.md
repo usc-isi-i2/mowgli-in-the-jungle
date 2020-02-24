@@ -29,7 +29,7 @@ A prediction system on one of the datasets is based on the following files:
 * `end_to_end.py` contains an `EndToEnd` class with a number of standard data science functions (loading of data, training a model, applying a model to make predictions, evaluating those predictions).
 * `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines three functions: `preprocess`, `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
 
-## Ic. Prepare your environment
+### Ic. Prepare your environment
 
 **Note:** We recommend that you run this code within a virtual environment.
 
