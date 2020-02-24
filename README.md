@@ -11,7 +11,7 @@ The framework supports a typical experiment flow:
 
 When developing a solution, you should **only worry about step 2: developing a system that creates predictions**. 
 
-## I. Data and code
+## I. Basics
 
 ### Ia. Data
 
@@ -29,15 +29,15 @@ A prediction system on one of the datasets is based on the following files:
 * `end_to_end.py` contains an `EndToEnd` class with a number of standard data science functions (loading of data, training a model, applying a model to make predictions, evaluating those predictions).
 * `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines three functions: `preprocess`, `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
 
-## II. Prepare your environment
+## Ic. Prepare your environment
 
 **Note:** We recommend that you run this code within a virtual environment.
 
 * `pip install -r requirements.txt` 
 
-## III. Developing a system
+## II. Developing a system
 
-### IIIa. Utility functions
+### IIa. Utility functions
 
 To help us easily build systems, reuse code, and avoid bugs, we are working on a base of utility functions. The wishlist of utility functions that we are intending to build is kept in [UTILS.md](UTILS.md). An API specification can be found here.
 
@@ -45,7 +45,7 @@ The functions can be found in the `utils/` folder. Overview of the functions imp
 * `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 * `grounding/` contains functions for grounding the input to a KB.
 
-### IIIb. How to create a new system?
+### IIb. How to create a new system?
 
 Creating a new system essentially consists of four steps:
 1. Create a new repository in which you will clone this framework and optionally, other repositories. For example, `https://github.com/usc-isi-i2/mowgli-uci-hognet` extends the framework with a new system that combines UCI grounding and HOGNet reasoning.
@@ -53,9 +53,9 @@ Creating a new system essentially consists of four steps:
 3. Update/create a config file to point to your new class and to the dataset you are working on (see `cfg/` for an example config).
 4. See the script `run_model.sh` for an example on how to run the example predictor over SIQA. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
 
-## IV. Additional information
+## III. Additional information
 
-### IVa. What is a question and what is an answer?
+### IIIa. What is a question and what is an answer?
 
 Even though we make efforts to unify the formats across datasets, please make sure you understand what each field means in the context of the dataset you are working on. The main variation between the datasets is found in the kind of information given in the question. Here is a specification of what is given within the question of each of our 4 supported datasets (the elements 0, 1, and 2 constitute the `question` list):
 
@@ -74,7 +74,7 @@ For more (complementary) information, please consult the original dataset websit
 
 The only exception here is aNLI, where the answer is the middle event between `observation 1` and `observation 2`, i.e., information that fills the gap between the two observations.
 
-### IVb. `ExamplePredictor` random baseline performance
+### IIIb. `ExamplePredictor` random baseline performance
 
 The current baseline picks an answer randomly out of the set of possible answers. Given that the number of possible answers per dataset is between 2 and 4, the baseline accuracy varies between roughly 25 and 50%. Specifically:
 
@@ -85,7 +85,7 @@ The current baseline picks an answer randomly out of the set of possible answers
 | PhysicalIQA |        50%        |
 |  SocialIQA  |      33.(3)%      |
 
-### IVc. Submitting to the leaderboard
+### IIIc. Submitting to the leaderboard
 
 **Step 1: registration** Before submitting to the leaderboard, you need to contact AI2 (leaderboard@allenai.org) and ask for submission access.
 
@@ -108,12 +108,12 @@ This will create a docker image with a name ${IMAGE_NAME} for you, based on the 
 **Step 4: upload to the leaderboard** Use your Beaker image to [create a submission](https://leaderboard.allenai.org/socialiqa/submission/create) on the official leaderboard.
 
 
-### IVd. Notes and suggestions
+### IIId. Notes and suggestions
 
 * Make sure you review the metadata: for instance, the `split_type` stored for Hellaswag can be valuable, as it indicates whether the question is in- or out-of-domain.
 * You might notice that the zeroth possible answer for the questions in the socialIQA dataset is an empty string. The reason for this is that the social IQA dataset labels are originally one-padded. This is already taken care of - you should be fine as long as your ssystem does not favor empty answers, but be careful when submitting an official system entry.
 * the folder `evaluation` has a python and a shell script that perform dedicated evaluation outside of the system script. These scripts can be useful to perform multi-dataset evaluation in a single run.
 
-## V. Contact
+## IV. Contact
 
 Filip Ilievski (ilievski@isi.edu)
