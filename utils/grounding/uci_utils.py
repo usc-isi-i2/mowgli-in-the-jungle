@@ -12,7 +12,7 @@ def get_concepts(nodes, normalize_nodes):
 	concepts=[]
 	for node_id, node_data in nodes.items():
 		if len(node_data['candidates']):
-			best_candidate=node_data['candidates'][-1]["uri"]
+			best_candidate=node_data['candidates'][0]["uri"]
 			if normalize_nodes:
 				best_candidate=best_candidate.lstrip('/c/en/')
 			concepts.append(best_candidate)
