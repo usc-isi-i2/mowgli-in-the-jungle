@@ -1,2 +1,5 @@
 #! /bin/bash
-CUDA_VISIBLE_DEVICES="" python main.py --input data/socialiqa-train-dev --config cfg/default.yaml --output output/ 
+dataset="socialiqa-train-dev"
+config="default.yaml"
+
+CUDA_VISIBLE_DEVICES="" python main.py --input data/$dataset --config cfg/$config --output output/ 
