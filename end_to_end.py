@@ -28,10 +28,10 @@ class EndToEnd:
     def preprocess_partition(self, part_data, partition=None):
         return self.predictor.preprocess(part_data, partition)
 
-    def train_model(self, train_data, dev_data):
+    def train_model(self, train_data, dev_data, graph=None):
         start_time = time.time()
 
-        model=self.predictor.train(train_data, dev_data)
+        model=self.predictor.train(train_data, dev_data, graph)
 
         end_time=time.time()
         logging.debug("Time taken to train model: {}".format(end_time - start_time))
@@ -45,6 +45,7 @@ class EndToEnd:
 
     def predict(self, model, entries, store_bool, output_dir, partition):
         answers=[]
+		
         for i, entry in enumerate(entries):
             answer=self.predictor.predict(model, entry)
             answers.append(answer)
