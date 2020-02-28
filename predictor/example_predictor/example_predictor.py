@@ -19,5 +19,6 @@ class ExamplePredictor(Predictor):
         answer=random.randint(0,len(answers)-1)
         while answers[answer]=='':
             answer=random.randint(0,len(answers)-1)
-        return str(answer)
+        probs=['%.2f' % random.random() for i in range(len(answers))]
+        return str(answer), probs
 

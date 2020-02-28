@@ -7,3 +7,4 @@ __MACOSX
 mowgli-uci/
 numberbatch-en-19.08.txt
 output/
+*.jsonl

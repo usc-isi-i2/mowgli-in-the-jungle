@@ -45,12 +45,14 @@ class EndToEnd:
 
     def predict(self, model, entries, store_bool, output_dir, partition):
         answers=[]
+        probs=[]
         for i, entry in enumerate(entries):
-            answer=self.predictor.predict(model, entry)
+            answer, prob=self.predictor.predict(model, entry)
+            probs.append(prob)
             answers.append(answer)
         if store_bool:
             filename='%s/%s.lst' % (output_dir, partition)
-            utils.save_predictions(filename, answers)
+            utils.save_predictions(filename, answers, probs)
 
         return answers
 
