@@ -1,7 +1,7 @@
 class Entry(object):
     """A single training/dev/test entry for simple sequence classification."""
 
-    def __init__(self, split, id, question, answers, intro='', correct_answer=None, metadata={}):
+    def __init__(self, split, id, question, answers, intro='', correct_answer=None, qc=None, ac=None, metadata={}):
         """Constructs an Entry.
         Args:
           split: string. Which data partition (train-dev-test) is the entry from.
@@ -16,6 +16,8 @@ class Entry(object):
         self.question=question
         self.answers=answers
         self.correct_answer=correct_answer
+        self.qc=qc
+        self.ac=ac
         self.metadata=metadata
 
 

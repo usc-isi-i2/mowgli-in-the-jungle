@@ -1,5 +1,6 @@
 import sys
 sys.path.append('../')
+
 import argparse
 import yaml
 import logging
@@ -47,7 +48,7 @@ def process_dataset(input_dir, config_file, output_dir, pretrained_model):
         model = etoe.load_pretrained_model(pretrained_model)
     else:
         logging.debug('No pretrained model specified. Training a new model...')
-        model = etoe.train_model(train_data, dev_data)
+        model = etoe.train_model(train_data, dev_data, 'data/conceptnet/graph.gt')
 
     # Make predictions on train, dev and test data
     if config['evaluate_training']:
