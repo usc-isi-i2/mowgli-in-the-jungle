@@ -1,10 +1,5 @@
 import sys
-sys.path.append('../../mowgli-uci')
-sys.path.append('../mowgli-uci')
-sys.path.append('mowgli-uci')
-
-import graphify
-import link
+from graphify import graphify, link
 
 ##### Helper functions #####
 
