@@ -11,7 +11,7 @@ with open('requirements.txt', 'r') as f:
             install_requires.append(re)
 
 setuptools.setup(
-    name="mowgli-in-the-jungle",
+    name="mowgli_framework",
     version="1.0.0",
     author="Filip Ilievski",
     author_email="ilievski@isi.edu",
