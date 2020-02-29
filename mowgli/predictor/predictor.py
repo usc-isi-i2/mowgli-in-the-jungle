@@ -1,7 +1,7 @@
 import abc
 from typing import List, Any
 
-from classes import Entry, Dataset
+from mowgli.classes import Entry, Dataset
 
 class Predictor(abc.ABC):
 
