@@ -1,0 +1,6 @@
+include README.md
+include UTILS.md
+recursive-include data/*
+include cfg/*
+include configurator/*
+
