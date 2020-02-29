@@ -2,9 +2,9 @@ import time
 import pickle
 import logging
 
-from predictor.predictor import Predictor
-import utils.general as utils
-import parser
+from mowgli.predictor.predictor import Predictor
+import mowgli.utils.general as utils
+import mowgli.parser
 
 class EndToEnd:
     """
