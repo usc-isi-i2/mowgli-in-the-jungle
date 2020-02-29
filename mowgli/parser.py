@@ -4,9 +4,9 @@ import json
 import pickle
 import sys
 
-import classes
-import parser_config as config
-import utils.general as utils
+import mowgli.classes
+import mowgli.parser_config as config
+import mowgli.utils.general as utils
 
 ################## Utility functions #######################
 
