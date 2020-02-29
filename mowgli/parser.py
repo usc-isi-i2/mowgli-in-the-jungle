@@ -3,8 +3,10 @@ import os
 import json
 import pickle
 import sys
+import pkgutil
 
-import mowgli.classes
+
+import mowgli.classes as classes
 import mowgli.parser_config as config
 import mowgli.utils.general as utils
 
@@ -57,20 +59,20 @@ def prepare_anli_dataset(inputdir, dataname, max_rows=None):
         labels_file='%s/%s' % (inputdir, config_data[f'{split}_labels_file'])
         labels=utils.load_predictions(labels_file)
 
-        with open(input_file, 'r') as f:
-            for index, l in enumerate(f):
-                if max_rows and index>=max_rows: break
-                item = json.loads(l)
-                split_data=getattr(dataset, split)
-                print(l)
-                an_entry=classes.Entry(
-                    split=split,
-                    id='{}-{}'.format(split, item["story_id"]),
-                    question=[item['obs1'], item['obs2']],
-                    answers=combine_anli_answers(item, offset),
-                    correct_answer=None if split == 'test' else labels[index]
-                )
-                split_data.append(an_entry)
+        input_data = pkgutil.get_data('mowgli', input_file).decode()
+        rows=input_data.split('\n')
+        for index, l in enumerate(rows):
+            if max_rows and index>=max_rows: break
+            item = json.loads(l)
+            split_data=getattr(dataset, split)
+            an_entry=classes.Entry(
+                split=split,
+                id='{}-{}'.format(split, item["story_id"]),
+                question=[item['obs1'], item['obs2']],
+                answers=combine_anli_answers(item, offset),
+                correct_answer=None if split == 'test' else labels[index]
+            )
+            split_data.append(an_entry)
     return dataset
 
 def prepare_hellaswag_dataset(inputdir, dataname, max_rows=None):
@@ -86,21 +88,21 @@ def prepare_hellaswag_dataset(inputdir, dataname, max_rows=None):
         labels_file='%s/%s' % (inputdir, config_data[f'{split}_labels_file'])
         labels=utils.load_predictions(labels_file)
 
-        with open(input_file, 'r') as f:
-            for index, l in enumerate(f):
-                if max_rows and index>=max_rows: break
-                item = json.loads(l)
-                split_data=getattr(dataset, split)
-                print(l)
-                an_entry=classes.Entry(
-                    split=split,
-                    id='{}-{}'.format(split, item['ind']),
-                    question=compose_hs_question(item),
-                    answers=['']*offset + item['ending_options'],
-                    correct_answer=None if split == 'test' else labels[index],
-                    metadata={'activity_label': item['activity_label'], 'dataset': item['dataset'], 'split_type': item['split_type']}
-                )
-                split_data.append(an_entry)
+        input_data = pkgutil.get_data('mowgli', input_file).decode()
+        rows=input_data.split('\n')
+        for index, l in enumerate(rows):
+            if max_rows and index>=max_rows: break
+            item = json.loads(l)
+            split_data=getattr(dataset, split)
+            an_entry=classes.Entry(
+                split=split,
+                id='{}-{}'.format(split, item['ind']),
+                question=compose_hs_question(item),
+                answers=['']*offset + item['ending_options'],
+                correct_answer=None if split == 'test' else labels[index],
+                metadata={'activity_label': item['activity_label'], 'dataset': item['dataset'], 'split_type': item['split_type']}
+            )
+            split_data.append(an_entry)
     return dataset
 
 def prepare_socialiqa(inputdir, dataname, max_rows=None):
@@ -116,20 +118,20 @@ def prepare_socialiqa(inputdir, dataname, max_rows=None):
         labels_file='%s/%s' % (inputdir, config_data[f'{split}_labels_file'])
         labels=utils.load_predictions(labels_file)
 
-        with open(input_file, 'r') as f:
-            for index, l in enumerate(f):
-                if max_rows and index>=max_rows: break
-                item = json.loads(l)
-                split_data=getattr(dataset, split)
-                #print(l)
-                an_entry=classes.Entry(
-                    split=split,
-                    id='{}-{}'.format(split, index),
-                    question=[item['context'], item['question']],
-                    answers=combine_siqa_answers(item, offset),
-                    correct_answer=None if split == 'test' else labels[index]
-                )
-                split_data.append(an_entry)
+        input_data = pkgutil.get_data('mowgli', input_file).decode()
+        rows=input_data.split('\n')
+        for index, l in enumerate(rows):
+            if max_rows and index>=max_rows: break
+            item = json.loads(l)
+            split_data=getattr(dataset, split)
+            an_entry=classes.Entry(
+                split=split,
+                id='{}-{}'.format(split, index),
+                question=[item['context'], item['question']],
+                answers=combine_siqa_answers(item, offset),
+                correct_answer=None if split == 'test' else labels[index]
+            )
+            split_data.append(an_entry)
     return dataset
 
 def prepare_physicaliqa(inputdir, dataname, max_rows=None):
@@ -145,30 +147,30 @@ def prepare_physicaliqa(inputdir, dataname, max_rows=None):
         labels_file='%s/%s' % (inputdir, config_data[f'{split}_labels_file'])
         labels=utils.load_predictions(labels_file)
 
-        with open(input_file, 'r') as f:
-            for index, l in enumerate(f):
-                if max_rows and index>=max_rows: break
-                item = json.loads(l)
-                split_data=getattr(dataset, split)
-                print(l)
-                an_entry=classes.Entry(
-                    split=split,
-                    id='{}-{}'.format(split, item['id']),
-                    question=[item['goal']],
-                    answers=combine_piqa_answers(item, offset),
-                    correct_answer=None if split == 'test' else labels[index]
-                )
-                split_data.append(an_entry)
+        input_data = pkgutil.get_data('mowgli', input_file).decode()
+        rows=input_data.split('\n')
+        for index, l in enumerate(rows):
+            if max_rows and index>=max_rows: break
+            item = json.loads(l)
+            split_data=getattr(dataset, split)
+            an_entry=classes.Entry(
+                split=split,
+                id='{}-{}'.format(split, item['id']),
+                question=[item['goal']],
+                answers=combine_piqa_answers(item, offset),
+                correct_answer=None if split == 'test' else labels[index]
+            )
+            split_data.append(an_entry)
     return dataset
 
 def parse_dataset(datadir, name, max_rows=None):
-    if name in ['anli', 'alphanli']:
+    if name.startswith('anli') or name.startswith('alphanli'):
         return prepare_anli_dataset(datadir, name, max_rows)
-    elif name in ['hellaswag', 'hs']:
+    elif name.startswith('hellaswag') or name.startswith('hs'):
         return prepare_hellaswag_dataset(datadir, name, max_rows)
-    elif name in ['physicaliqa', 'piqa']:
+    elif name.startswith('physicaliqa') or name.startswith('piqa'):
         return prepare_physicaliqa(datadir, name, max_rows)
-    elif name in ['socialiqa', 'siqa']:
+    elif name.startswith('socialiqa') or name.startswith('siqa'):
         return prepare_socialiqa(datadir, name, max_rows)
     else:
         return 'Error: dataset name does not exist!'

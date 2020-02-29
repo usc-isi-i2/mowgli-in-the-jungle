@@ -1,5 +1,7 @@
 #! /bin/bash
-dataset="socialiqa-train-dev"
-config="default.yaml"
+#dataset="socialiqa-train-dev"
+dataset="physicaliqa-train-dev"
+config=''
 
-CUDA_VISIBLE_DEVICES="" python main.py --input data/$dataset --config cfg/$config --output output/ 
+
+python -m mowgli --dataset $dataset --output output/ 

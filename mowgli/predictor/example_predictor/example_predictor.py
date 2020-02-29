@@ -9,7 +9,7 @@ class ExamplePredictor(Predictor):
     def preprocess(self, part_data:List, partition:str) -> Any:
         return part_data
         
-    def train(self, train_data:List, dev_data: List) -> Any:
+    def train(self, train_data:List, dev_data: List, graph: Any) -> Any:
         return None
 
     def predict(self, model: Any, entry: Entry) -> List:

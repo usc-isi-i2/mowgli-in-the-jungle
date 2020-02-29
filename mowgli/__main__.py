@@ -8,20 +8,21 @@ from mowgli.configurator.configurator import Configurator
 from mowgli.end_to_end import EndToEnd
 
 
-def process_dataset(input_dir, config_file, output_dir, pretrained_model):
+def process_dataset(dataset, config_file, output_dir, pretrained_model):
 
     config = yaml.load(open(config_file))
     logging.debug("Using configuration: {}".format(config))
     configurator = Configurator(config)
 
-    logging.debug("Processing directory: {}".format(input_dir))
+    logging.debug("Processing dataset: {}".format(dataset))
 
     predictor = configurator.get_component("predictor")
 
     etoe = EndToEnd(predictor)
 
     # LOAD DATASET PARTITIONS
-    dataset = etoe.load_dataset(input_dir, config['dataname'], int(
+    input_dir='data/%s' % dataset
+    dataset = etoe.load_dataset(input_dir, dataset, int(
         config['datarows']) if 'datarows' in config.keys() else None)
 
     logging.debug("dataset loaded")
@@ -72,16 +73,16 @@ def main(args):
 
     logging.basicConfig(level=logging.DEBUG)
 
-    process_dataset(input_dir=args.input, config_file=args.config,
+    process_dataset(dataset=args.dataset, config_file=args.config,
                     output_dir=args.output, pretrained_model=args.pretrained)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='Process a machine commonsense dataset')
-    parser.add_argument("--input", default="data/",
-                        help="Data directory that contains input files in JSONL format and potentially labels.")
-    parser.add_argument("--config", default="cfg/default.yaml",
+    parser.add_argument("--dataset", default="alphanli",
+                        help="Dataset to process")
+    parser.add_argument("--config", default="mowgli/cfg/default.yaml",
                         help="config file to load")
     # Default is current directory
     parser.add_argument("--output", default="./",

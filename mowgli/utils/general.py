@@ -1,6 +1,7 @@
 from sklearn.metrics import accuracy_score
 from typing import List
 import os
+import pkgutil
 
 def divide_chunks(l, n):
 	# looping till length l 
@@ -9,9 +10,10 @@ def divide_chunks(l, n):
 
 def load_predictions(input_file: str) -> List[str]:
     lines = []
-    with open(input_file, "rb") as f:
-        for l in f:
-            lines.append(l.decode().strip())
+    input_data=pkgutil.get_data('mowgli', input_file).decode()
+    rows=input_data.split('\n')
+    for l in rows:
+        lines.append(str(l).strip())
     return lines
 
 def save_predictions(filename, answers, probs):

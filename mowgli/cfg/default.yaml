@@ -1,9 +1,6 @@
 # Classes
 predictor:
-  class: predictor.example_predictor.example_predictor.ExamplePredictor
-
-# Dataset
-dataname: "siqa"
+  class: mowgli.predictor.example_predictor.example_predictor.ExamplePredictor
 
 # Settings
 evaluate_training: false
