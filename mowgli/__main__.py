@@ -4,8 +4,8 @@ import logging
 import os
 import logging
 
-from configurator.configurator import Configurator
-from end_to_end import EndToEnd
+from mowgli.configurator.configurator import Configurator
+from mowgli.end_to_end import EndToEnd
 
 
 def process_dataset(input_dir, config_file, output_dir, pretrained_model):
