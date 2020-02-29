@@ -4,7 +4,7 @@ import logging
 
 from mowgli.predictor.predictor import Predictor
 import mowgli.utils.general as utils
-import mowgli.parser
+import mowgli.parser as parser
 
 class EndToEnd:
     """
