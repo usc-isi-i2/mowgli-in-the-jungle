@@ -1,8 +1,8 @@
 import random
 from typing import List, Any
 
-from classes import Dataset, Entry
-from predictor.predictor import Predictor
+from mowgli.classes import Dataset, Entry
+from mowgli.predictor.predictor import Predictor
 
 class ExamplePredictor(Predictor):
 
