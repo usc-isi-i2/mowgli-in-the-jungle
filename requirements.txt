@@ -1,5 +1,4 @@
 loguru>=0.4.1
 tqdm>=4.36.1
 numpy>=1.17.2
-PyYAML>=5.3
 scikit_learn>=0.22.1
