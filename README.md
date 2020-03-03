@@ -35,6 +35,11 @@ A prediction system on one of the datasets is based on the following files:
 
 * `pip install -r requirements.txt` 
 
+This framework can be installed as a package:
+`pip install -e git+https://github.com/usc-isi-i2/mowgli-in-the-jungle.git#egg=mowgli_framework`
+
+
+
 ## II. Developing a system
 
 ### IIa. Utility functions
