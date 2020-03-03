@@ -39,18 +39,22 @@ A prediction system on one of the datasets is based on the following files:
 
 ### IIa. Utility functions
 
-To help us easily build systems, reuse code, and avoid bugs, we are working on a base of utility functions. The wishlist of utility functions that we are intending to build is kept in [UTILS.md](UTILS.md). An API specification can be found here.
+To help us easily build systems, reuse code, and avoid bugs, we are working on a base of utility functions. These functions are interfaces and are implemented in external repositories. By doing so, we decouple these external projects from our framework but still allow their usage in a dynamic way.
 
 The functions can be found in the `utils/` folder. Overview of the functions implemented so far:
 * `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 * `grounding/` contains functions for grounding the input to a KB.
+* `graphs/` contains functions for graph manipulation.
+
+The wishlist of utility functions that we are intending to build is kept in [UTILS.md](UTILS.md). An API specification will be added soon.
+
 
 ### IIb. How to create a new system?
 
 Creating a new system essentially consists of four steps:
-1. Create a new repository in which you will clone this framework and optionally, other repositories. For example, `https://github.com/usc-isi-i2/mowgli-uci-hognet` extends the framework with a new system that combines UCI grounding and HOGNet reasoning.
-2.. Create a new class that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Essentially, you need to implement the three methods: `preprocess`, `train` and `predict`, or a subset of them. Note that you should be able to add any parameters to these functions.
-3. Update/create a config file to point to your new class and to the dataset you are working on (see `cfg/` for an example config).
+1. Create a new repository in which you will install this framework and optionally, other repositories. For example, `https://github.com/usc-isi-i2/mowgli-uci-hognet` extends the framework with a new system that combines UCI grounding and HOGNet reasoning.
+2. Create a new class that extends the `Predictor` abstract base class (following the `ExamplePredictor` code). Essentially, you need to implement the three methods: `preprocess`, `train` and `predict`, or a subset of them. Note that you should be able to add any parameters to these functions.
+3. Update/create a config file to point to your new class (see `cfg/` for an example config).
 4. See the script `run_model.sh` for an example on how to run the example predictor over SIQA. If needed, update the `run_model.sh` script to use the right input/output directories and config file.
 
 ## III. Additional information
