@@ -19,7 +19,7 @@ When developing a solution, you should **only worry about step 2: developing a s
 All files that belong to a dataset are parsed together as a single Python object that follows the `classes.py` specification for a `Dataset`. 
 * `classes.py` describes two classes: `Dataset` and `Entry`.
   * A `Dataset` has a `name` and three attributes for the data partitions: `train`, `dev`, and `test`. Each of these partition objects are lists of "entries".
-  * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, and `metadata`.
+  * An `Entry` is described with the following attributes: `split`, `id`, `question`, `answers`, `correct_answer`, `qc` (optional, question concepts), `ac` (optional, answer concepts), and `metadata`.
   We use this structure to unify the different terminology used in different datasets. See below for a description of what is a `question` and an `answer` in each of the datasets.
 
 ### Ib. Code components
@@ -27,7 +27,7 @@ All files that belong to a dataset are parsed together as a single Python object
 A prediction system on one of the datasets is based on the following files:
 * `main.py` is the executable script that runs the system. It accepts the following command-line arguments: `input` (input directory), `config` (config file in YAML), `output` (location for storing of the produced predictions), and `pretrained` (an optional argument pointing to a location of a pretrained model, to skip retraining). An example configuration file can be found in `cfg/` and example outputs can be found in the `output/` folder. The configuration is loaded with help of a `configurator` code.
 * `end_to_end.py` contains an `EndToEnd` class with a number of standard data science functions (loading of data, training a model, applying a model to make predictions, evaluating those predictions).
-* `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines three functions: `preprocess`, `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how can we implement these functions for a random baseline.
+* `predictor/predictor.py` contains an abstract base class called `Predictor`, which should be extended in order to create an actual prediction system. This class defines three functions: `preprocess`, `train` and `predict`. In the subdirectory `example_predictor`, there is an `ExamplePredictor` class within `example_predictor.py` which shows how we can implement these functions for a random baseline.
 
 ### Ic. Prepare your environment
 
