@@ -6,8 +6,8 @@ from mowgli.predictor.predictor import Predictor
 
 class ExamplePredictor(Predictor):
 
-    def preprocess(self, part_data:List, partition:str) -> Any:
-        return part_data
+    def preprocess(self, dataset:Dataset) -> Any:
+        return dataset
         
     def train(self, train_data:List, dev_data: List, graph: Any) -> Any:
         return None
