@@ -6,7 +6,7 @@ from mowgli.classes import Entry, Dataset
 class Predictor(abc.ABC):
 
     @abc.abstractmethod
-    def preprocess(self, part_data:List) -> Any:
+    def preprocess(self, dataset:Dataset) -> Any:
         pass
 
     @abc.abstractmethod
