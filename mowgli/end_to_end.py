@@ -25,8 +25,8 @@ class EndToEnd:
     def get_data_partition(self, dataset, partition):
         return getattr(dataset, partition)
 
-    def preprocess_partition(self, part_data, partition=None):
-        return self.predictor.preprocess(part_data, partition)
+    def preprocess_dataset(self, dataset):
+        return self.predictor.preprocess(dataset)
 
     def train_model(self, train_data, dev_data, graph=None):
         start_time = time.time()
