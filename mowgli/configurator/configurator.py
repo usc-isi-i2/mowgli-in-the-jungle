@@ -22,8 +22,8 @@ class Configurator(object):
             for keyword in self.args[component_key]:
                 if keyword != "class":
                     kwargs[keyword] = self.args[component_key][keyword]
-            print(kwargs)
-            return provider(**kwargs)
+            return provider()
+            #return provider(**kwargs)
 
     def get_component(self, component_key):
         return self.get_instance(component_key)
