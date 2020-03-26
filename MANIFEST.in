@@ -1,6 +1,9 @@
 include README.md
 include UTILS.md
 include requirements.txt
-recursive-include mowgli/data/*
+include mowgli/data/socialiqa-train-dev/*
+include mowgli/data/physicaliqa-train-dev/*
+include mowgli/data/hellaswag-train-dev/*
+include mowgli/data/alphanli/*
 include mowgli/cfg/*
 include mowgli/configurator/*
