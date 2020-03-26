@@ -1,6 +1,6 @@
 include README.md
 include UTILS.md
-recursive-include data/*
-include cfg/*
-include configurator/*
-
+include requirements.txt
+recursive-include mowgli/data/*
+include mowgli/cfg/*
+include mowgli/configurator/*
