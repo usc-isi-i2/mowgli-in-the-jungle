@@ -18,6 +18,8 @@ def process_dataset(dataset, config_file, output_dir, pretrained_model):
 
     predictor = configurator.get_component("predictor")
 
+    os.makedirs(output_dir, exist_ok = True)
+    
     etoe = EndToEnd(predictor)
 
     # LOAD DATASET PARTITIONS
