@@ -44,7 +44,7 @@ class EndToEnd:
         return model
 
     def predict(self, model, dataset, store_bool, output_dir, partition):
-	answers, probs=self.predictor.predict(model, dataset, partition)
+        answers, probs=self.predictor.predict(model, dataset, partition)
         if store_bool:
             filename='%s/%s.lst' % (output_dir, partition)
             utils.save_predictions(filename, answers, probs)
