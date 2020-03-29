@@ -43,14 +43,8 @@ class EndToEnd:
             model=pickle.load(f)
         return model
 
-    def predict(self, model, entries, store_bool, output_dir, partition):
-        answers=[]
-        probs=[]
-		
-        for i, entry in enumerate(entries):
-            answer, prob=self.predictor.predict(model, entry)
-            probs.append(prob)
-            answers.append(answer)
+    def predict(self, model, dataset, store_bool, output_dir, partition):
+	answers, probs=self.predictor.predict(model, dataset, partition)
         if store_bool:
             filename='%s/%s.lst' % (output_dir, partition)
             utils.save_predictions(filename, answers, probs)
