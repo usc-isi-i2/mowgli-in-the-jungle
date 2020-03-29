@@ -14,5 +14,5 @@ class Predictor(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def predict(self, model: Any, entry: Entry) -> List:
+    def predict(self, model: Any, dataset: Dataset, partition: str) -> List:
         pass
