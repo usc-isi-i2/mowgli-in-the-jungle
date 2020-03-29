@@ -52,18 +52,18 @@ def process_dataset(dataset, config_file, output_dir, pretrained_model):
     # Make predictions on train, dev and test data
     if config['evaluate_training']:
         train_predictions = etoe.predict(
-            model, train_data, config['store_predictions'], output_dir, 'train')
+            model, dataset, config['store_predictions'], output_dir, 'train')
         train_acc = etoe.evaluate(train_data, train_predictions)
         logging.debug('Training accuracy: %f' % train_acc)
 
     dev_predictions = etoe.predict(
-        model, dev_data, config['store_predictions'], output_dir, 'dev')
+        model, dataset, config['store_predictions'], output_dir, 'dev')
     dev_acc = etoe.evaluate(dev_data, dev_predictions)
     logging.debug('Dev set accuracy: %f' % dev_acc)
 
     if len(test_data):
         test_predictions = etoe.predict(
-            model, test_data, True, output_dir, 'predictions')
+            model, dataset, True, output_dir, 'test')
 
     print('done!')
 
