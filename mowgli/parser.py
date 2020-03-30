@@ -200,6 +200,7 @@ def prepare_semeval2018(inputdir, dataname, max_rows=None):
 
         i=0
         for instance in instances:
+            if max_rows and i>=max_rows: break
             instance_id=instance['@id']
             context=instance['text']
             if instance['questions']:
