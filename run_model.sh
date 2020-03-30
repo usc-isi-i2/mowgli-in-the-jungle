@@ -6,4 +6,4 @@ dataset='csqa'
 config=''
 
 
-python -m mowgli --dataset $dataset --output output/ 
+python -m mowgli --dataset $dataset --output output/ --config cfg/default.yaml 

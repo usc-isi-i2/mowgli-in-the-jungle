@@ -1,3 +1,4 @@
+import pkgutil
 import argparse
 import yaml
 import logging
@@ -10,7 +11,12 @@ from mowgli.end_to_end import EndToEnd
 
 def process_dataset(dataset, config_file, output_dir, pretrained_model):
 
-    config = yaml.load(open(config_file))
+    if not config_file:
+        config_data=pkgutil.get_data('mowgli', 'cfg/default.yaml').decode()
+    else:
+        config_data=open(config_file)
+
+    config = yaml.load(config_data)
     logging.debug("Using configuration: {}".format(config))
     configurator = Configurator(config)
 
@@ -83,7 +89,7 @@ if __name__ == "__main__":
         description='Process a machine commonsense dataset')
     parser.add_argument("--dataset", default="alphanli",
                         help="Dataset to process")
-    parser.add_argument("--config", default="mowgli/cfg/default.yaml",
+    parser.add_argument("--config", default="",
                         help="config file to load")
     # Default is current directory
     parser.add_argument("--output", default="./",
