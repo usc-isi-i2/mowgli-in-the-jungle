@@ -220,7 +220,45 @@ def prepare_semeval2018(inputdir, dataname, max_rows=None):
                     if max_rows and i>=max_rows: break
     return dataset
 
+def parse_csqa_question(line, split):
+    letters2nums={'A': '0', 'B': '1', 'C': '2', 'D': '3', 'E': '4'}
+    id=line['id']
+    q_data=line['question']
+    q_concept=q_data['question_concept']
+    q_text=q_data['stem']
+    answers=[]
+    for c in q_data['choices']:
+        answers.append(c['text'])
+    correct_answer=letters2nums[line["answerKey"]]
     
+    an_entry=classes.Entry(
+            split=split,
+            id=id,
+            question=[q_concept, q_text],
+            answers=answers,
+            correct_answer=correct_answer)
+    return an_entry
+
+def prepare_csqa(inputdir, dataname, max_rows=None):
+    config_data=config.cfg['csqa']
+
+    # Load dataset examples
+    dataset=classes.Dataset(dataname)
+
+    for split in config.parts:
+        input_file='%s/%s' % (inputdir, config_data[f'{split}_input_file'])
+
+        input_data = pkgutil.get_data('mowgli', input_file).decode()
+        rows=input_data.split('\n')
+        for index, l in enumerate(rows):
+            if l:
+                if max_rows and index>=max_rows: break
+                item = json.loads(l)
+                an_entry=parse_csqa_question(item, split)
+
+                split_data=getattr(dataset, split)
+                split_data.append(an_entry)
+    return dataset
 
 def parse_dataset(datadir, name, max_rows=None):
     if name.startswith('anli') or name.startswith('alphanli'):
@@ -233,5 +271,7 @@ def parse_dataset(datadir, name, max_rows=None):
         return prepare_socialiqa(datadir, name, max_rows)
     elif name.startswith('se2018') or name.startswith('semeval'):
         return prepare_semeval2018(datadir, name, max_rows)
+    elif name.startswith('csqa') or name.startswith('commonsenseqa'):
+        return prepare_csqa(datadir, name, max_rows)
     else:
         return 'Error: dataset name does not exist!'

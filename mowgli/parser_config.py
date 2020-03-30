@@ -52,3 +52,11 @@ cfg['se2018t11'] = {
             "answer_offset": 0,
             "parts": ['trial', 'train', 'dev', 'test']
         }
+
+# CommonsenseQA
+cfg['csqa'] = {
+            "dataname": "csqa",
+            "train_input_file": "train_cs.jsonl",
+            "dev_input_file": "dev_cs.jsonl",
+            "answer_offset": 0
+            }
