@@ -198,6 +198,7 @@ def prepare_semeval2018(inputdir, dataname, max_rows=None):
         input_data = json.loads(pkgutil.get_data('mowgli', input_file).decode())
         instances=input_data['data']['instance']
 
+        i=0
         for instance in instances:
             instance_id=instance['@id']
             context=instance['text']
@@ -208,11 +209,14 @@ def prepare_semeval2018(inputdir, dataname, max_rows=None):
                         an_entry=parse_se_question(question, instance_id, context, split)
                         split_data=getattr(dataset, split)
                         split_data.append(an_entry)
+                        i+=1
+                        if max_rows and i>=max_rows: break
                 else:
                     an_entry=parse_se_question(questions, instance_id, context, split)
                     split_data=getattr(dataset, split)
                     split_data.append(an_entry)
-
+                    i+=1
+                    if max_rows and i>=max_rows: break
     return dataset
 
     
