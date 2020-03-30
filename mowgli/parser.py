@@ -167,6 +167,56 @@ def prepare_physicaliqa(inputdir, dataname, max_rows=None):
                 split_data.append(an_entry)
     return dataset
 
+def parse_se_question(question, instance_id, context, split):
+    q_text=question['@text']
+    q_id=question['@id']
+    correct_answer=-1
+    answers=[]
+    for answer in question['answer']:
+        a_text=answer['@text']
+        answers.append(a_text)
+        if answer["@correct"]=='True':
+            correct_answer=answer["@id"]
+    an_entry=classes.Entry(
+            split=split,
+            id='{}-{}-{}'.format(split, instance_id, q_id),
+            question=[context, q_text],
+            answers=answers,
+            correct_answer=correct_answer)
+    return an_entry
+
+def prepare_semeval2018(inputdir, dataname, max_rows=None):
+    config_data=config.cfg['se2018t11']
+    # Load dataset examples
+    dataset=classes.Dataset(dataname)
+
+    offset=config_data['answer_offset']
+    
+    for split in config_data['parts']:
+        input_file='%s/%s' % (inputdir, config_data[f'{split}_input_file'])
+
+        input_data = json.loads(pkgutil.get_data('mowgli', input_file).decode())
+        instances=input_data['data']['instance']
+
+        for instance in instances:
+            instance_id=instance['@id']
+            context=instance['text']
+            if instance['questions']:
+                questions=instance['questions']['question']
+                if isinstance(questions, list):
+                    for question in questions:
+                        an_entry=parse_se_question(question, instance_id, context, split)
+                        split_data=getattr(dataset, split)
+                        split_data.append(an_entry)
+                else:
+                    an_entry=parse_se_question(questions, instance_id, context, split)
+                    split_data=getattr(dataset, split)
+                    split_data.append(an_entry)
+
+    return dataset
+
+    
+
 def parse_dataset(datadir, name, max_rows=None):
     if name.startswith('anli') or name.startswith('alphanli'):
         return prepare_anli_dataset(datadir, name, max_rows)
@@ -176,5 +226,7 @@ def parse_dataset(datadir, name, max_rows=None):
         return prepare_physicaliqa(datadir, name, max_rows)
     elif name.startswith('socialiqa') or name.startswith('siqa'):
         return prepare_socialiqa(datadir, name, max_rows)
+    elif name.startswith('se2018') or name.startswith('semeval'):
+        return prepare_semeval2018(datadir, name, max_rows)
     else:
         return 'Error: dataset name does not exist!'

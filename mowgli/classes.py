@@ -24,7 +24,7 @@ class Entry(object):
 class Dataset(object):
     """Dataset object containing a list of entries."""
 
-    def __init__(self, name, train=[], dev=[], test=[]):
+    def __init__(self, name, train=[], dev=[], test=[], trial=[]):
         """Constructs a dataset.
         Args:
             name: string. The official name of this dataset.
@@ -34,3 +34,4 @@ class Dataset(object):
         self.train=train
         self.dev=dev
         self.test=test
+        self.trial=trial
