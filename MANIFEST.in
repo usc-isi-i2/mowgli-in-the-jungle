@@ -6,5 +6,6 @@ include mowgli/data/physicaliqa-train-dev/*
 include mowgli/data/hellaswag-train-dev/*
 include mowgli/data/alphanli/*
 include mowgli/data/se2018t11/*
+include mowgli/data/csqa/*
 include mowgli/cfg/*
 include mowgli/configurator/*
