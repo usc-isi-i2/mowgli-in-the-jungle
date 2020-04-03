@@ -9,7 +9,7 @@ from mowgli.configurator.configurator import Configurator
 from mowgli.end_to_end import EndToEnd
 
 
-def process_dataset(dataset, config_file, output_dir, pretrained_model):
+def process_dataset(config_file):
 
     if not config_file:
         config_data=pkgutil.get_data('mowgli', 'cfg/default.yaml').decode()
@@ -19,6 +19,10 @@ def process_dataset(dataset, config_file, output_dir, pretrained_model):
     config = yaml.load(config_data)
     logging.debug("Using configuration: {}".format(config))
     configurator = Configurator(config)
+
+    dataset=config['dataset']
+    output_dir=config['outdir']
+    pretrained_model=config['pretrained'] if 'pretrained' in config.keys() else None
 
     logging.debug("Processing dataset: {}".format(dataset))
 
@@ -80,22 +84,14 @@ def main(args):
 
     logging.basicConfig(level=logging.DEBUG)
 
-    process_dataset(dataset=args.dataset, config_file=args.config,
-                    output_dir=args.output, pretrained_model=args.pretrained)
+    process_dataset(config_file=args.config)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='Process a machine commonsense dataset')
-    parser.add_argument("--dataset", default="alphanli",
-                        help="Dataset to process")
     parser.add_argument("--config", default="",
                         help="config file to load")
-    # Default is current directory
-    parser.add_argument("--output", default="./",
-                        help="Output directory for all output files")
-    parser.add_argument("--pretrained", default=None,
-                        help="(Optional) Predict using a pretrained model")
 
     args = parser.parse_args()
 

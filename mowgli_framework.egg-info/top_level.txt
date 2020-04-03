@@ -1,4 +1,0 @@
-docker
-evaluation
-mowgli
-tests

@@ -2,7 +2,12 @@
 predictor:
   class: mowgli.predictor.example_predictor.example_predictor.ExamplePredictor
 
-# Settings
+# Key settings
+dataset: 'se2018t11'
+kg: 'conceptnet'
+outdir: './output'
+
+# Other settings
 evaluate_training: false
 store_predictions: true
 datarows: 10
