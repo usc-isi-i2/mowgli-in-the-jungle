@@ -6,13 +6,13 @@ from mowgli.predictor.predictor import Predictor
 
 class ExamplePredictor(Predictor):
 
-    def preprocess(self, dataset:Dataset) -> Any:
+    def preprocess(self, dataset:Dataset, config:Any) -> Any:
         return dataset
         
-    def train(self, train_data:List, dev_data: List, graph: Any) -> Any:
+    def train(self, dataset:Dataset, config:Any) -> Any:
         return None
 
-    def predict(self, model: Any, dataset: Dataset, partition: str) -> List:
+    def predict(self, model: Any, dataset: Dataset, config:Any, partition: str) -> List:
         entries=getattr(dataset, partition)
         all_answers= []
         all_probs = []
