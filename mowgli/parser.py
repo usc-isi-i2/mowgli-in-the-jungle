@@ -5,7 +5,6 @@ import pickle
 import sys
 import pkgutil
 
-
 import mowgli.classes as classes
 import mowgli.parser_config as config
 import mowgli.utils.general as utils
@@ -36,13 +35,27 @@ def compose_hs_question(item):
     return [p1, p2, p3]
 
 def combine_siqa_answers(item, offset):
-    return ['']*offset + [item['answerA'], item['answerB'], item['answerC']]
+    choice1=classes.Choice(text=item['answerA'],
+                            label=str(offset))
+    choice2=classes.Choice(text=item['answerB'],
+                            label=str(1+offset))
+    choice3=classes.Choice(text=item['answerC'],
+                            label=str(2+offset))
+    return [choice1, choice2, choice3]
 
 def combine_piqa_answers(item, offset):
-    return ['']*offset + [item['sol1'], item['sol2']]
+    choice1=classes.Choice(text=item['sol1'],
+                            label=str(offset))
+    choice2=classes.Choice(text=item['sol2'],
+                            label=str(1+offset))
+    return [choice1, choice2]
 
 def combine_anli_answers(item, offset):
-    return ['']*offset + [item['hyp1'], item['hyp2']]
+    choice1=classes.Choice(text=item['hyp1'],
+                            label=str(offset))
+    choice2=classes.Choice(text=item['hyp2'],
+                            label=str(1+offset))
+    return [choice1, choice2]
 
 #################### PARSERS ###########################
 
@@ -71,7 +84,7 @@ def prepare_anli_dataset(inputdir, dataname, max_rows=None):
                     id='{}-{}'.format(split, item["story_id"]),
                     question=[item['obs1'], item['obs2']],
                     answers=combine_anli_answers(item, offset),
-                    correct_answer=None if split == 'test' else labels[index]
+                    correct_answer=None if split == 'test' else str(labels[index])
                 )
                 split_data.append(an_entry)
     return dataset
@@ -96,12 +109,16 @@ def prepare_hellaswag_dataset(inputdir, dataname, max_rows=None):
             if l:
                 item = json.loads(l)
                 split_data=getattr(dataset, split)
+                choices=[]
+                for index, option in enumerate(item['ending_options']):
+                    choice=classes.Choice(text=option, label=str(offset+index))
+                    choices.append(choice)
                 an_entry=classes.Entry(
                     split=split,
                     id='{}-{}'.format(split, item['ind']),
                     question=compose_hs_question(item),
-                    answers=['']*offset + item['ending_options'],
-                    correct_answer=None if split == 'test' else labels[index],
+                    answers=choices,
+                    correct_answer=None if split == 'test' else str(labels[index]),
                     metadata={'activity_label': item['activity_label'], 'dataset': item['dataset'], 'split_type': item['split_type']}
                 )
                 split_data.append(an_entry)
@@ -132,7 +149,7 @@ def prepare_socialiqa(inputdir, dataname, max_rows=None):
                     id='{}-{}'.format(split, index),
                     question=[item['context'], item['question']],
                     answers=combine_siqa_answers(item, offset),
-                    correct_answer=None if split == 'test' else labels[index]
+                    correct_answer=None if split == 'test' else str(labels[index])
                 )
                 split_data.append(an_entry)
     return dataset
@@ -162,7 +179,7 @@ def prepare_physicaliqa(inputdir, dataname, max_rows=None):
                     id='{}-{}'.format(split, item['id']),
                     question=[item['goal']],
                     answers=combine_piqa_answers(item, offset),
-                    correct_answer=None if split == 'test' else labels[index]
+                    correct_answer=None if split == 'test' else str(labels[index])
                 )
                 split_data.append(an_entry)
     return dataset
@@ -170,13 +187,16 @@ def prepare_physicaliqa(inputdir, dataname, max_rows=None):
 def parse_se_question(question, instance_id, context, split):
     q_text=question['@text']
     q_id=question['@id']
-    correct_answer=-1
+    correct_answer="-1"
     answers=[]
     for answer in question['answer']:
         a_text=answer['@text']
-        answers.append(a_text)
+        a_lbl=answer['@id']
+        choice=classes.Choice(text=a_text, label=a_lbl)
+        answers.append(choice)
         if answer["@correct"]=='True':
             correct_answer=answer["@id"]
+
     an_entry=classes.Entry(
             split=split,
             id='{}-{}-{}'.format(split, instance_id, q_id),
@@ -221,15 +241,16 @@ def prepare_semeval2018(inputdir, dataname, max_rows=None):
     return dataset
 
 def parse_csqa_question(line, split):
-    letters2nums={'A': '0', 'B': '1', 'C': '2', 'D': '3', 'E': '4'}
     id=line['id']
     q_data=line['question']
     q_concept=q_data['question_concept']
     q_text=q_data['stem']
     answers=[]
     for c in q_data['choices']:
-        answers.append(c['text'])
-    correct_answer=letters2nums[line["answerKey"]]
+        choice=classes.Choice(text=c['text'],
+                        label=c['label'])
+        answers.append(choice)
+    correct_answer=line["answerKey"]
     
     an_entry=classes.Entry(
             split=split,
