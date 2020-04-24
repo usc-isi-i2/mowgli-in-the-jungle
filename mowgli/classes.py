@@ -14,12 +14,13 @@ class Choice(object):
 class Entry(object):
     """A single training/dev/test entry for simple sequence classification."""
 
-    def __init__(self, split, id, question, answers, intro='', correct_answer=None, qc=None, ac=None, metadata={}):
+    def __init__(self, split, id, context, question, answers, correct_answer=None, qc=None, ac=None, metadata={}):
         """Constructs an Entry.
         Args:
           split: string. Which data partition (train-dev-test) is the entry from.
           id: string. Unique id for the entry.
-          question: list. A list of several components, including the question context, the actual question, or pre-post situations (see the README for concrete details).
+          context: string. Context preceding the question.
+          question: string. A list of several components, including the question context, the actual question, or pre-post situations (see the README for concrete details).
           answers: list. A list of all possible answers/hypotheses associated with the question. Each answer is a member of the Choice class.
           labels: list. Which labels does this entry have.
           correct_answer: (Optional) string. Order number of the correct answer, zero-padded. Applicable to train and dev splits only.
@@ -29,6 +30,7 @@ class Entry(object):
         """
         self.split=split
         self.id=id
+        self.context=context
         self.question=question
         self.answers=answers
         self.labels=self.get_labels()

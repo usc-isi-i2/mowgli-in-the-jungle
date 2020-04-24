@@ -26,14 +26,6 @@ def _part_bs(item):
     else:
         return item['ctx_b']
 
-def compose_hs_question(item):
-
-    p1=item['activity_label']
-    p2=_part_a(item)
-    p3=_part_bs(item)
-
-    return [p1, p2, p3]
-
 def combine_siqa_answers(item, offset):
     choice1=classes.Choice(text=item['answerA'],
                             label=str(offset))
@@ -82,7 +74,8 @@ def prepare_anli_dataset(inputdir, dataname, max_rows=None):
                 an_entry=classes.Entry(
                     split=split,
                     id='{}-{}'.format(split, item["story_id"]),
-                    question=[item['obs1'], item['obs2']],
+                    context=item['obs1'],
+                    question=item['obs2'],
                     answers=combine_anli_answers(item, offset),
                     correct_answer=None if split == 'test' else str(labels[index])
                 )
@@ -116,7 +109,8 @@ def prepare_hellaswag_dataset(inputdir, dataname, max_rows=None):
                 an_entry=classes.Entry(
                     split=split,
                     id='{}-{}'.format(split, item['ind']),
-                    question=compose_hs_question(item),
+                    context=item['activity_label'].strip() + '. ' + _part_a(item),
+                    question=_part_bs(item),
                     answers=choices,
                     correct_answer=None if split == 'test' else str(labels[index]),
                     metadata={'activity_label': item['activity_label'], 'dataset': item['dataset'], 'split_type': item['split_type']}
@@ -147,7 +141,8 @@ def prepare_socialiqa(inputdir, dataname, max_rows=None):
                 an_entry=classes.Entry(
                     split=split,
                     id='{}-{}'.format(split, index),
-                    question=[item['context'], item['question']],
+                    context=item['context'], 
+                    question=item['question'],
                     answers=combine_siqa_answers(item, offset),
                     correct_answer=None if split == 'test' else str(labels[index])
                 )
@@ -177,7 +172,8 @@ def prepare_physicaliqa(inputdir, dataname, max_rows=None):
                 an_entry=classes.Entry(
                     split=split,
                     id='{}-{}'.format(split, item['id']),
-                    question=[item['goal']],
+                    context=item['goal'],
+                    question='',
                     answers=combine_piqa_answers(item, offset),
                     correct_answer=None if split == 'test' else str(labels[index])
                 )
@@ -200,7 +196,8 @@ def parse_se_question(question, instance_id, context, split):
     an_entry=classes.Entry(
             split=split,
             id='{}-{}-{}'.format(split, instance_id, q_id),
-            question=[context, q_text],
+            context=context,
+            question=q_text,
             answers=answers,
             correct_answer=correct_answer)
     return an_entry
@@ -255,7 +252,8 @@ def parse_csqa_question(line, split):
     an_entry=classes.Entry(
             split=split,
             id=id,
-            question=[q_concept, q_text],
+            context=q_concept,
+            question=q_text,
             answers=answers,
             correct_answer=correct_answer)
     return an_entry

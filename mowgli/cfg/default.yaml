@@ -1,6 +1,6 @@
 # Classes
 predictor:
-  class: mowgli.predictor.example_predictor.example_predictor.ExamplePredictor
+  class: mowgli.predictor.example_predictor.ExamplePredictor
 
 # Key settings
 dataset: 'se2018t11'
