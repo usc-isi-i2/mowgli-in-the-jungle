@@ -42,3 +42,21 @@ cfg['anli'] = {
             "dev_labels_file": "dev-labels.lst",
             "answer_offset": 1
         }
+
+cfg['se2018t11'] = {
+            "dataname": "se2018t11",
+            "train_input_file": "train_data.json",
+            "dev_input_file": "dev_data.json",
+            "test_input_file": "test_data.json",
+            "trial_input_file": "trial_data.json",
+            "answer_offset": 0,
+            "parts": ['trial', 'train', 'dev', 'test']
+        }
+
+# CommonsenseQA
+cfg['csqa'] = {
+            "dataname": "csqa",
+            "train_input_file": "train_cs.jsonl",
+            "dev_input_file": "dev_cs.jsonl",
+            "answer_offset": 0
+            }

@@ -6,13 +6,13 @@ from mowgli.classes import Entry, Dataset
 class Predictor(abc.ABC):
 
     @abc.abstractmethod
-    def preprocess(self, dataset:Dataset) -> Any:
+    def preprocess(self, dataset:Dataset, config: Any) -> Any:
         pass
 
     @abc.abstractmethod
-    def train(self, train_data:List, dev_data:List) -> Any:
+    def train(self, dataset:Dataset, config:Any) -> Any:
         pass
 
     @abc.abstractmethod
-    def predict(self, model: Any, entry: Entry) -> List:
+    def predict(self, model: Any, dataset: Dataset, config: Any, partition: str) -> List:
         pass
