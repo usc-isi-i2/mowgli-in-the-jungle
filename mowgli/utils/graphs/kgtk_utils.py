@@ -1,7 +1,12 @@
-import kgtk.utils.gt.io_utils as gtio
+import lazy_import
+# import kgtk.utils.gt.io_utils as gtio
+gtio = lazy_import.lazy_module('kgtk.utils.gt.io_utils')
 
-import graph_tool.topology as gtt
+# import graph_tool.topology as gtt
+gtt = lazy_import.lazy_module('graph_tool.topology')
+
 #import graph_tool.all as gtall
+gtall = lazy_import.lazy_module('graph_tool.all')
 
 from graph_tool import GraphView, Graph
 from graph_tool.topology import similarity

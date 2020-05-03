@@ -47,7 +47,7 @@ To help us easily build systems, reuse code, and avoid bugs, we are working on a
 The functions can be found in the `utils/` folder. Overview of the functions implemented so far:
 * `general.py` contains useful functions that are used by other scripts for evaluation or loading/storing predictions.
 * `grounding/` contains functions for grounding the input to a KB.
-* `graphs/` contains functions for graph manipulation.
+* `graphs/` contains functions for _graph manipulation.
 
 The wishlist of utility functions that we are intending to build is kept in [UTILS.md](UTILS.md). An API specification will be added soon.
 
