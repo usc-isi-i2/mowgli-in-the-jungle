@@ -7,6 +7,7 @@ import sys
 sys.path.append('../')
 import utils.general as utils
 
+
 def main(args):
     labels_file = args.labels_file
     preds_file = args.preds_file
@@ -14,9 +15,10 @@ def main(args):
     gold_answers = utils.load_predictions(labels_file)
     pred_answers = utils.load_predictions(preds_file)
 
-    acc=utils.compute_accuracy(gold_answers, pred_answers)
+    acc = utils.compute_accuracy(gold_answers, pred_answers)
 
-    print('Accuracy: %f' % acc) 
+    print('Accuracy: %f' % acc)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(

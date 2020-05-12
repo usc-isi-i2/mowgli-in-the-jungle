@@ -1,4 +1,7 @@
 from pydoc import locate
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Configurator(object):
@@ -16,6 +19,7 @@ class Configurator(object):
     def get_instance(self, component_key):
         if component_key in self.args and self.args[component_key]['class']:
             argument_value = self.args[component_key]['class']
+            logger.info(f'argument value: {argument_value}')
             provider = self.get_class_instance(argument_value)
             kwargs = {}
 
@@ -23,7 +27,7 @@ class Configurator(object):
                 if keyword != "class":
                     kwargs[keyword] = self.args[component_key][keyword]
             return provider()
-            #return provider(**kwargs)
+            # return provider(**kwargs)
 
     def get_component(self, component_key):
         return self.get_instance(component_key)

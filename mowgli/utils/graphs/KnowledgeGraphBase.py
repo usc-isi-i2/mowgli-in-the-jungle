@@ -1,11 +1,11 @@
+import pathlib
 from abc import ABC, abstractmethod
 from typing import Any, Optional, Type, NoReturn, Union
-import pathlib
 
 import lazy_import
+
 nx = lazy_import.lazy_module('networkx')
 gtall = lazy_import.lazy_module('graph_tool.all')
-
 
 NODE_T = Type[Any]
 EDGE_T = Type[Any]

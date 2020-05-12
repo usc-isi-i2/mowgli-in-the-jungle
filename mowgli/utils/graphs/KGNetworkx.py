@@ -1,8 +1,9 @@
+import logging
 import pathlib
 import random
 from typing import Union, NoReturn, List, Tuple, Iterable
+
 import lazy_import
-import logging
 
 from utils.general import reservoir_sampling
 from utils.graphs.KnowledgeGraphBase import KnowledgeGraphBase, NODE_T, NoNeighborError, LexicError, BadStartNodeError

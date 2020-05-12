@@ -1,9 +1,9 @@
-import random
-
-from sklearn.metrics import accuracy_score
-from typing import List, Iterable, Any
 import os
 import pkgutil
+import random
+from typing import List, Iterable, Any
+
+from sklearn.metrics import accuracy_score
 
 
 def divide_chunks(l, n):
