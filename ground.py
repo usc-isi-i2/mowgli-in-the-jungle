@@ -1,7 +1,4 @@
-import sys
-sys.path.append('../')
-
-import utils.grounding.uci_utils as grounding
+import mowgli.grounding.uci_utils as grounding
 
 sentences=["When boiling butter, when it's ready, you can Pour it onto a plate"]
 #sentences=['Chad went to get the wheel alignment measured on his car.']
