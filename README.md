@@ -1,4 +1,27 @@
-# mowgli-in-the-jungle framework
+# mowgli-in-the-jungle Library
+
+Mowgli-in-the-jungle is a library of functionalities that help building a commonsense QA solution on a variety of tasks.
+
+## Installation
+
+* Set a virtual environment 
+```
+conda create -n mowgli-env python=3.6 anaconda
+conda activate mowgli-env
+```
+* `pip install git+git://github.com/ucinlp/mowgli-uci`
+* `conda install --yes faiss-cpu -c pytorch`
+* `python -m spacy download en_core_web_lg`
+
+## Functionality
+
+The available functions are found in `mowgli`. List of supported operations:
+* `grounding` - see `ground.py` for an example
+* ...
+
+
+
+# To be revised: mowgli-in-the-jungle framework
 The `mowgli-in-the-jungle` framework facilitates the development of solutions on the DARPA Machine commonsense development datasets within the Mowgli project.
 
 Currently it supports the following datasets: `anli`, `hellaswag`, `physicaliqa`, and `socialiqa`.
