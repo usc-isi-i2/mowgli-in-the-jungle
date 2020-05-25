@@ -4,7 +4,11 @@ Mowgli-in-the-jungle is a library of functionalities that help building a common
 
 ## Installation
 
-* Set a virtual environment
+* Set a virtual environment 
+```
+conda create -n mowgli-env python=3.6 anaconda
+conda activate mowgli-env
+```
 * `pip install git+git://github.com/ucinlp/mowgli-uci`
 * `conda install --yes faiss-cpu -c pytorch`
 * `python -m spacy download en_core_web_lg`
