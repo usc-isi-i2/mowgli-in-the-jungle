@@ -12,11 +12,12 @@ conda activate mowgli-env
 * `pip install git+git://github.com/ucinlp/mowgli-uci`
 * `conda install --yes faiss-cpu -c pytorch`
 * `python -m spacy download en_core_web_lg`
+* `bash download.sh` (to download numbatch embeddings, and more later)
 
 ## Functionality
 
 The available functions are found in `mowgli`. List of supported operations:
-* `grounding` - see `ground.py` for an example
+* `grounding` - see `examples/ground.py` for an example
 * ...
 
 
