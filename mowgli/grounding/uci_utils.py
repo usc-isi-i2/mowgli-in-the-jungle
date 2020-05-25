@@ -23,6 +23,7 @@ def graphify_sentences(sentences):
 	return graphify.graphify_dataset(sentences)
 
 def link_concepts(graphs, embedding_file):
+	print(graphs)
 	return link.link(generate_instances(graphs), embedding_file=embedding_file)
 
 def ground_dataset(sentences, embedding_file):
