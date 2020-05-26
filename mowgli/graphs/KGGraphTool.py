@@ -1,20 +1,20 @@
 import logging
 import pathlib
+from typing import Union, NoReturn, List, Iterable, Tuple, Type
 from random import random
-from typing import Union, NoReturn, List, Iterable, Tuple
+import lazy_import
 
-# gtall = lazy_import.lazy_module('graph_tool.all')
-import graph_tool.all as gtall
+from mowgli.utils.general import reservoir_sampling
+from mowgli.graphs.KGNetworkx import NxKG
+from mowgli.graphs.KnowledgeGraphBase import NoNeighborError, LexicError
 
-from utils.general import reservoir_sampling
-from utils.graphs.KGNetworkx import NxKG
-from utils.graphs.KnowledgeGraphBase import NoNeighborError, LexicError
-
+# import graph_tool.all as gtall
+gtall = lazy_import.lazy_module('graph_tool.all')
 logger = logging.getLogger(__name__)
 
-NODE_T = gtall.Vertex
-EDGE_T = gtall.Edge
-GRAPH_T = gtall.Graph
+NODE_T = Type[gtall.Vertex]
+EDGE_T = Type[gtall.Edge]
+GRAPH_T = Type[gtall.Graph]
 
 
 class GTKG(NxKG):
