@@ -6,7 +6,7 @@ from typing import Union, NoReturn, List, Tuple, Iterable
 import lazy_import
 
 from mowgli.utils.general import reservoir_sampling
-from mowgli.graphs.KnowledgeGraphBase import KnowledgeGraphBase, NODE_T, NoNeighborError, LexicError, BadStartNodeError
+from mowgli.graphs.KGBase import KnowledgeGraphBase, NODE_T, NoNeighborError, LexicError, BadStartNodeError
 
 nx = lazy_import.lazy_module('networkx')
 logger = logging.getLogger(__name__)

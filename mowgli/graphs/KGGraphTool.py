@@ -6,7 +6,7 @@ import lazy_import
 
 from mowgli.utils.general import reservoir_sampling
 from mowgli.graphs.KGNetworkx import NxKG
-from mowgli.graphs.KnowledgeGraphBase import NoNeighborError, LexicError
+from mowgli.graphs.KGBase import NoNeighborError, LexicError
 
 # import graph_tool.all as gtall
 gtall = lazy_import.lazy_module('graph_tool.all')

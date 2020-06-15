@@ -1,5 +1,7 @@
-from graphify import graphify, link
-
+import lazy_import
+# from graphify import graphify, link
+graphify = lazy_import.lazy_module('graphify.graphify')
+link = lazy_import.lazy_module('graphify.link')
 
 ##### Helper functions #####
 

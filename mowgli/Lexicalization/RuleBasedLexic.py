@@ -4,7 +4,7 @@ from collections import deque
 from typing import List, Union, Iterable, Generator, Tuple
 
 from mowgli.Lexicalization.Lexicalizations import EdgeLexicalizer, PathLexicalizer, EntityLexicError
-from mowgli.graphs.KnowledgeGraphBase import NODE_T, EDGE_T, GRAPH_T
+from mowgli.graphs.KGBase import NODE_T, EDGE_T, GRAPH_T
 
 logger = logging.getLogger(__name__)
 
