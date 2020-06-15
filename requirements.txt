@@ -1,4 +1,5 @@
-loguru>=0.4.1
 tqdm>=4.36.1
 numpy>=1.17.2
 scikit_learn>=0.22.1
+lazy-import>=0.2.2
+hydra>=2.5
